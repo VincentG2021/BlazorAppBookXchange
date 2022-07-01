@@ -1,0 +1,32 @@
+﻿@page "/booklist"
+
+<PageTitle>Liste de livres</PageTitle>
+
+<h1>Liste de livres</h1>
+
+@if (bookList == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Auteur</th>
+                <th>Synopsis</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in bookList)
+            {
+                <tr>
+                    <td>@book.Titre</td>
+                    <td>@book.Auteur</td>
+                    <td>@book.Synopsis</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
