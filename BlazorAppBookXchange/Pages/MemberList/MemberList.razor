@@ -1,0 +1,32 @@
+﻿@page "/memberlist"
+
+<PageTitle>Liste des membres</PageTitle>
+
+<h1>Liste des membres</h1>
+
+@if (memberList == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Pseudo</th>
+                <th>Email</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var member in memberList)
+            {
+                <tr>
+                    <td>@member.Pseudo</td>
+                    <td>@member.Email</td>
+                    <td>@member.Role</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
