@@ -7,7 +7,7 @@
         public string Email { get; set; }
         public string? Prenom { get; set; }
         public string? Nom { get; set; }
-        public string PwdHash { get; set; }
+        public string Pwd { get; set; }
         public int Role { get; set; }
     }
 }

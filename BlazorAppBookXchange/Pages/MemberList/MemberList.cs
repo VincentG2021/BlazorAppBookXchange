@@ -14,6 +14,5 @@ namespace BlazorAppBookXchange.Pages.MemberList
         {
             memberList = await Http.GetFromJsonAsync<List<MembreModel>>("https://localhost:7144/api/BookXchangeAPI/GetMemberList");
         }
-
     }
 }
