@@ -8,6 +8,29 @@
         public string? Prenom { get; set; }
         public string? Nom { get; set; }
         public string Pwd { get; set; }
+
         public int Role { get; set; }
+
+
+
+    }
+
+    public class LoginMembreModel
+    {
+        public string Pseudo { get; set; }
+        public string Password { get; set; }
+
+
+    }
+
+    public class ConnectedMember
+    {
+        public int IdMembre { get; set; }
+        public string Pseudo { get; set; }
+        public string Email { get; set; }
+        public string? Prenom { get; set; }
+        public string? Nom { get; set; }
+        public int Role { get; set; }
+        public string Token { get; set; }
     }
 }
