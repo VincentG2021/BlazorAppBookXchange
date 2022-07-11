@@ -52,15 +52,16 @@ else
 
     private IEnumerable<LivreModel>? bookList { get; set; }
 
-    private string token = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zaWQiOiI0IiwiZW1haWwiOiJzbEBmb3JtLmJlIiwibmJmIjoxNjU1OTc4Mzk1LCJleHAiOjE2NTU5ODE5OTUsImlhdCI6MTY1NTk3ODM5NSwiaXNzIjoiTWljcm9zb2Z0LkV4dGVuc2lvbnMuQ29uZmlndXJhdGlvbi5Db25maWd1cmF0aW9uU2VjdGlvbiIsImF1ZCI6Ik1pY3Jvc29mdC5FeHRlbnNpb25zLkNvbmZpZ3VyYXRpb24uQ29uZmlndXJhdGlvblNlY3Rpb24ifQ.-9ifVpEwKRPTdZm7YuJyGV2dCH_ZM43dA2uNa6FpTC9usVZbO0uwukOul98lXKUn1r_HeK75dN_qxwUSarEwCg";
-
+    //OLD private string token = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zaWQiOiI0IiwiZW1haWwiOiJzbEBmb3JtLmJlIiwibmJmIjoxNjU1OTc4Mzk1LCJleHAiOjE2NTU5ODE5OTUsImlhdCI6MTY1NTk3ODM5NSwiaXNzIjoiTWljcm9zb2Z0LkV4dGVuc2lvbnMuQ29uZmlndXJhdGlvbi5Db25maWd1cmF0aW9uU2VjdGlvbiIsImF1ZCI6Ik1pY3Jvc29mdC5FeHRlbnNpb25zLkNvbmZpZ3VyYXRpb24uQ29uZmlndXJhdGlvblNlY3Rpb24ifQ.-9ifVpEwKRPTdZm7YuJyGV2dCH_ZM43dA2uNa6FpTC9usVZbO0uwukOul98lXKUn1r_HeK75dN_qxwUSarEwCg";
+    //PHIL
+    private string token ="eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zaWQiOiI1IiwidW5pcXVlX25hbWUiOiJwaGlsIiwibmJmIjoxNjU3Mjg3NTMxLCJleHAiOjE2NTcyOTExMzEsImlhdCI6MTY1NzI4NzUzMSwiaXNzIjoiTWljcm9zb2Z0LkV4dGVuc2lvbnMuQ29uZmlndXJhdGlvbi5Db25maWd1cmF0aW9uU2VjdGlvbiIsImF1ZCI6Ik1pY3Jvc29mdC5FeHRlbnNpb25zLkNvbmZpZ3VyYXRpb24uQ29uZmlndXJhdGlvblNlY3Rpb24ifQ.hNXQSoejJigiNfHTY41iy6mASHRPnVmvgq2CN-tT_YSEkkjb3RkwgHvJXbEGuPkzah9L7GLeY3_eJeyUZ3TOXg";
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
         
         //stagiaires = await Http.GetFromJsonAsync<Stagiaire>("api/user/1");
 
-        bookList = await Requester.Get<IEnumerable<LivreModel>>("api/user", token);
+        bookList = await Requester.Get<IEnumerable<LivreModel>>("https://localhost:7144/BookXchangeAPI/GetBookList", token);
 
     }
 

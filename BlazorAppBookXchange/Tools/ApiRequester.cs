@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Net.Http.Json;
 
 namespace BlazorAppBookXchange.Tools
 {
@@ -47,7 +48,7 @@ namespace BlazorAppBookXchange.Tools
             }
         }
 
-        public async void Post<TEntity>(string url, TEntity entity, string token = null)
+        public async Task<TResult> Post<TEntity, TResult>(string url, TEntity entity, string token = null)
         {
             if (token != null)
                 _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -55,12 +56,15 @@ namespace BlazorAppBookXchange.Tools
             string json = JsonConvert.SerializeObject(entity);
             HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            using (HttpResponseMessage message = await _client.PostAsync(url, content))
+            using (HttpResponseMessage responseMessage = await _client.PostAsync(url, content))
             {
-                if (!message.IsSuccessStatusCode)
+                if (!responseMessage.IsSuccessStatusCode)
                 {
-                    throw new HttpRequestException();
+                    //throw new HttpRequestException();
+                    return default(TResult);
                 }
+
+                return await responseMessage.Content.ReadFromJsonAsync<TResult>();
             }
         }
 

@@ -12,7 +12,7 @@ namespace BlazorAppBookXchange.Pages.BookList
         public List<LivreModel> bookList = new List<LivreModel>();
         protected override async Task OnInitializedAsync()
         {
-            bookList = await Http.GetFromJsonAsync<List<LivreModel>>("https://localhost:7144/api/BookXchangeAPI/GetBookList");
+            bookList = await Http.GetFromJsonAsync<List<LivreModel>>("https://localhost:7144/BookXchangeAPI/GetBookList");
         }
     }
 }

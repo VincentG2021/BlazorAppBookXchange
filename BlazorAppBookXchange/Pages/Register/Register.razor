@@ -1,0 +1,32 @@
+﻿@page "/register"
+<h3>Créez votre compte ici:</h3>
+
+<EditForm Model="nouveauMembre" OnValidSubmit="SubmitForm">
+    <DataAnnotationsValidator />
+    <p>
+        Pseudo : <InputText @bind-Value=nouveauMembre.Pseudo/>
+    </p>
+    <p>
+        Email : <InputText @bind-Value=nouveauMembre.Email/>
+    </p>
+    <p>
+        Pwd : <InputText @bind-Value=nouveauMembre.Pwd/>
+    </p>
+    <p>
+        Nom : <InputText @bind-Value=nouveauMembre.Nom/>
+    </p>
+    <p>
+        Prénom : <InputText @bind-Value=nouveauMembre.Prenom/>
+    </p>
+@*    <p>
+        Localisation : <InputText @bind-Value=nouveauMembre.Localisation/>
+    </p>
+*@    <p>
+        Role : <InputNumber @bind-Value=nouveauMembre.Role/>
+    </p>
+    <button class="btn btn-success" type="submit">Valider</button>
+    <ValidationSummary />
+</EditForm>
+@code {
+
+}
