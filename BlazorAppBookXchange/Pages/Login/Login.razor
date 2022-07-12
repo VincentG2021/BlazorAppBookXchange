@@ -4,7 +4,7 @@
 
 <h3>Identifier-vous ici:</h3>
 
-<EditForm Model="membreLogin" OnValidSubmit="SubmitForm">
+<EditForm Model="membreLogin" OnValidSubmit="SubmitLoginForm">
     <DataAnnotationsValidator />
     <p>
         Pseudo : <InputText @bind-Value=membreLogin.Pseudo/>
@@ -19,7 +19,7 @@
     <ValidationSummary />
 </EditForm>
 
-@if(AccountManager.isConnected)
+@if(AccountManager.IsConnected)
 {
     <p>CONNECTION OK</p>
 }
