@@ -1,5 +1,6 @@
 ﻿@page "/login"
 @inject ApiRequester Requester
+@inject AccountManager AccountManager
 
 <h3>Identifier-vous ici:</h3>
 
@@ -12,11 +13,21 @@
         Email : <InputText @bind-Value=membreLogin.Email/>
     </p>
 *@    <p>
-        Pwd : <InputText @bind-Value=membreLogin.Password/>
+        Pwd : <InputText @bind-Value=membreLogin.Password type="password"/>
     </p>
     <button class="btn btn-success" type="submit">Valider</button>
     <ValidationSummary />
 </EditForm>
+
+@if(AccountManager.isConnected)
+{
+    <p>CONNECTION OK</p>
+}
+else
+{
+    <p>NOT CONNECTED</p>
+
+}
 @code {
 
 }

@@ -2,23 +2,23 @@
 using BlazorAppBookXchange.Tools;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using System.Net.Http.Json;
 
 namespace BlazorAppBookXchange.Pages.Login
 {
-    public partial class Login
+    public partial class Login : ComponentBase
     {
-        [Inject]
-        private IJSRuntime _js { get; set; }
 
         [Inject]
         private ApiRequester _requester { get; set; }
 
         [Inject]
         HttpClient Http { get; set; }
-        
+
         [Inject]
         private NavigationManager navigationManager { get; set; }
+
+        [Inject]
+        private AccountManager accountManager { get; set; }
 
         public LoginMembreModel membreLogin { get; set; }
         public string Token { get; set; }
@@ -46,7 +46,10 @@ namespace BlazorAppBookXchange.Pages.Login
                     return;
                 }
 
-                SetToken(mm.Token);
+                await accountManager.SetToken(mm.Token);
+
+                //SetToken() FONCTIONNEL (set bien le Token au Login, ok avant de mep AccountManager et LocalStorageService)
+                //SetToken(mm.Token);
                 navigationManager.NavigateTo("/booklist");
             }
             else
@@ -58,12 +61,20 @@ namespace BlazorAppBookXchange.Pages.Login
         }
 
 
-        public async void SetToken(string Token)
-        {
-            //Token = membreLogin.Token;
-            await _js.InvokeVoidAsync("localStorage.setItem", "token", Token);
-            // return Token;
-        }
+        //FONCTIONNEL (set bien le Token au Login, ok avant de mep AccountManager et LocalStorageService)
+        //public async void SetToken(string Token)
+        //{
+        //    //Token = membreLogin.Token;
+        //    await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "token", Token);
+        //    // return Token;
+        //}
+
+        //public async void GetToken()
+        //{
+        //    //Token = membreLogin.Token;
+        //    await _js.InvokeVoidAsync("localStorage.setItem", "token", Token);
+        //    // return Token;
+        //}
 
         //protected override async Task OnInitializedAsync()
         //{
