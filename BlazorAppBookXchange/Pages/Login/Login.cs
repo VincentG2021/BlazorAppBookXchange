@@ -1,7 +1,6 @@
 ﻿using BlazorAppBookXchange.Models;
 using BlazorAppBookXchange.Tools;
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 
 namespace BlazorAppBookXchange.Pages.Login
 {
@@ -28,7 +27,7 @@ namespace BlazorAppBookXchange.Pages.Login
             membreLogin = new LoginMembreModel();
         }
 
-        public async Task SubmitForm()
+        public async Task SubmitLoginForm()
         {
             //using var response = await Http.PostAsJsonAsync<LoginMembreModel>("https://localhost:7144/BookXchangeAPI/Login/auth", membreLogin);
 
@@ -46,16 +45,17 @@ namespace BlazorAppBookXchange.Pages.Login
                     return;
                 }
 
-                await accountManager.SetToken(mm.Token);
+                await accountManager.SetToken("token", mm.Token);
+                await accountManager.checkIfTokenStored();
 
                 //SetToken() FONCTIONNEL (set bien le Token au Login, ok avant de mep AccountManager et LocalStorageService)
                 //SetToken(mm.Token);
                 navigationManager.NavigateTo("/booklist");
             }
-            else
-            {
-                navigationManager.NavigateTo("/memberlist");
-            }
+            //else
+            //{
+            //    navigationManager.NavigateTo("/memberlist");
+            //}
 
 
         }
