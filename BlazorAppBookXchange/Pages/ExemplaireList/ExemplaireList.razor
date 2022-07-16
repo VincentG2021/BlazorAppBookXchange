@@ -1,0 +1,41 @@
+﻿@page "/exemplairelist"
+@using BlazorAppBookXchange.Models
+@using BlazorAppBookXchange.Pages.ExemplaireList
+
+<PageTitle>Vos exemplaires</PageTitle>
+
+<h1>Vos exemplaires et éditions de livres</h1>
+
+@if (exemplaireList == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Auteur</th>
+                <th>Synopsis</th>
+                <th>Format</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var exemplaire in exemplaireList)
+            {
+                <tr>
+                    <td>@exemplaire.Titre</td>
+                    <td>@exemplaire.Auteur</td>
+                    <td>@exemplaire.Synopsis</td>
+                    <td>@exemplaire.Format</td>
+                    <td @onclick='() => SetSelected(exemplaire)' style="cursor:pointer;">@exemplaire.IdLivre</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+<EditionList Selected="@Selected"></EditionList>

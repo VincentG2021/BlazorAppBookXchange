@@ -21,6 +21,9 @@ namespace BlazorAppBookXchange.Pages.BookList
 
 
         public List<LivreModel> bookList = new List<LivreModel>();
+
+        public LivreModel Selected { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             bool isTokenPresent = await accountManager.checkIfTokenStored();
@@ -33,6 +36,11 @@ namespace BlazorAppBookXchange.Pages.BookList
             //bookList = await Http.GetFromJsonAsync<List<LivreModel>>("https://localhost:7144/BookXchangeAPI/GetBookList");
             bookList = await _requester.Get<List<LivreModel>>("https://localhost:7144/BookXchangeAPI/GetBookList", Token);
 
+        }
+
+        public void SetSelected(LivreModel book)
+        {
+            Selected = book;
         }
     }
 }

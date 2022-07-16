@@ -83,6 +83,12 @@ namespace BlazorAppBookXchange.Tools
             return Pseudo;
         }
 
+        public async Task<int> GetMemberId(string Key)
+        {
+            int IdMembre = await _storageService.GetItem<int>(Key);
+            return IdMembre;
+        }
+
         public async Task RemoveToken(string Key)
         {
             await _storageService.removeItem(Key);
