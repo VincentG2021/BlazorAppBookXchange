@@ -32,7 +32,17 @@ namespace BlazorAppBookXchange.Tools
 
         public async Task SetToken(string Key, string Token)
         {
-            await _storageService.SetItem<string>(Key, Token);
+            await _storageService.SetItem(Key, Token);
+        }
+
+        public async Task SetIdMembre(string Key, int IdMembre)
+        {
+            await _storageService.SetItem(Key, IdMembre);
+        }
+
+        public async Task SetPseudo(string Key, string Pseudo)
+        {
+            await _storageService.SetItem(Key, Pseudo);
         }
 
         public async Task<bool> checkIfTokenStored()
@@ -50,6 +60,12 @@ namespace BlazorAppBookXchange.Tools
         {
             string Token = await _storageService.GetItem<string>(Key);
             return Token;
+        }
+
+        public async Task<string> GetPseudo(string Key)
+        {
+            string Pseudo = await _storageService.GetItem<string>(Key);
+            return Pseudo;
         }
 
         public async Task RemoveToken(string Key)

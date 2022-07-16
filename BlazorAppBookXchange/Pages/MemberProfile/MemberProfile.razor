@@ -1,0 +1,21 @@
+﻿@page "/MemberProfile/{idConnectedMember}"
+@using BlazorAppBookXchange.Pages.MemberCard
+@using BlazorAppBookXchange.Pages.BookList
+<h3>MemberProfile</h3>
+
+<p>Route path: @idConnectedMember</p>
+
+@if(!(@connectedMember is null))
+{
+    <p>Pseudo : @connectedMember.Pseudo</p>
+}
+
+@*<Counter/>*@
+
+<MemberCard></MemberCard>
+
+<BookList></BookList>
+
+@code {
+
+}

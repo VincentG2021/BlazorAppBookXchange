@@ -46,40 +46,28 @@ namespace BlazorAppBookXchange.Pages.Login
                 }
 
                 await accountManager.SetToken("token", mm.Token);
+                await accountManager.SetIdMembre("idMembre", mm.IdMembre);
+                await accountManager.SetPseudo("pseudo", mm.Pseudo);
+                
                 await accountManager.checkIfTokenStored();
 
                 //SetToken() FONCTIONNEL (set bien le Token au Login, ok avant de mep AccountManager et LocalStorageService)
                 //SetToken(mm.Token);
-                navigationManager.NavigateTo("/booklist");
+                //navigationManager.NavigateTo("/booklist");
+
+                int idConnectedMember = mm.IdMembre;
+                
+                navigationManager.NavigateTo($"/memberprofile/{idConnectedMember}");
             }
-            //else
-            //{
-            //    navigationManager.NavigateTo("/memberlist");
-            //}
+            else
+            {
+                navigationManager.NavigateTo("/login");
+            }
 
 
         }
 
 
-        //FONCTIONNEL (set bien le Token au Login, ok avant de mep AccountManager et LocalStorageService)
-        //public async void SetToken(string Token)
-        //{
-        //    //Token = membreLogin.Token;
-        //    await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "token", Token);
-        //    // return Token;
-        //}
-
-        //public async void GetToken()
-        //{
-        //    //Token = membreLogin.Token;
-        //    await _js.InvokeVoidAsync("localStorage.setItem", "token", Token);
-        //    // return Token;
-        //}
-
-        //protected override async Task OnInitializedAsync()
-        //{
-        //    membreLogin = await Http.GetFromJsonAsync<MembreModel>("https://localhost:7144/api/BookXchangeAPI/Login/auth");
-        //}
     }
 }
 
