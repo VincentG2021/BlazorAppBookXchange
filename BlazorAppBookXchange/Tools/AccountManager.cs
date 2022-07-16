@@ -10,7 +10,9 @@ namespace BlazorAppBookXchange.Tools
 
 
         private bool _isConnected;
+        private bool _isTokenPresent;
         public event Action OnChange;
+
 
         public bool IsConnected
         {
@@ -23,6 +25,19 @@ namespace BlazorAppBookXchange.Tools
                 }
             }
         }
+
+        public bool IsTokenPresent
+        {
+            get { return _isTokenPresent; }
+            set {
+                if(_isTokenPresent != value)
+                {
+                    _isTokenPresent = value;
+                    NotifyStateChanged(); 
+                }
+            }
+        }
+
         private void NotifyStateChanged() => OnChange?.Invoke();
 
         public AccountManager(ILocalStorageService localStorageService)
@@ -48,12 +63,12 @@ namespace BlazorAppBookXchange.Tools
         public async Task<bool> checkIfTokenStored()
         {
             string storedToken = await _storageService.GetItem<string>("token");
-            bool isTokenPresent = (storedToken is null) ? false : true;
-            if (isTokenPresent == true)
+            IsTokenPresent = (storedToken is null) ? false : true;
+            if (IsTokenPresent == true)
             {
                 IsConnected = true;
             }
-            return isTokenPresent;
+            return IsTokenPresent;
         }
 
         public async Task<string> GetToken(string Key)
@@ -71,6 +86,7 @@ namespace BlazorAppBookXchange.Tools
         public async Task RemoveToken(string Key)
         {
             await _storageService.removeItem(Key);
+            IsTokenPresent = false;
             IsConnected = false;
 
         }
