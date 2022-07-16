@@ -25,6 +25,9 @@ namespace BlazorAppBookXchange.Pages.ExemplaireList
 
         public ExemplaireModel Selected { get; set; }
 
+        [Parameter]
+        public int IdMembre { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             bool isTokenPresent = await accountManager.checkIfTokenStored();
@@ -34,18 +37,19 @@ namespace BlazorAppBookXchange.Pages.ExemplaireList
                 return;
             }
             string Token = await accountManager.GetToken("token");
-            int IdMembre = await accountManager.GetMemberId("idMembre");
-            exemplaireList = await Http.GetFromJsonAsync<List<ExemplaireModel>>($"https://localhost:7144/BookXchangeAPI/GetMemberExemplaireList?id={IdMembre}");
-            //exemplaireList = await _requester.Get<List<ExemplaireModel>>($"https://localhost:7144/BookXchangeAPI/GetMemberExemplaireList/?id={IdMembre}", Token);
+            IdMembre = await accountManager.GetMemberId("idMembre");
+            //exemplaireList = await Http.GetFromJsonAsync<List<ExemplaireModel>>($"https://localhost:7144/BookXchangeAPI/GetMemberExemplaireList/{IdMembre}");
+
+            exemplaireList = await _requester.Get<List<ExemplaireModel>>($"https://localhost:7144/BookXchangeAPI/GetMemberExemplaireList/{IdMembre}", Token);
 
         }
 
         public async Task<List<ExemplaireModel>> GetExemplaires()
         {
             string Token = await accountManager.GetToken("token");
-            int IdMembre = await accountManager.GetMemberId("idMembre");
+            IdMembre = await accountManager.GetMemberId("idMembre");
 
-            exemplaireList = await _requester.Get<List<ExemplaireModel>>($"https://localhost:7144/BookXchangeAPI/GetMemberExemplaireList/?id={IdMembre}", Token);
+            exemplaireList = await _requester.Get<List<ExemplaireModel>>($"https://localhost:7144/BookXchangeAPI/GetMemberExemplaireList/{IdMembre}", Token);
             return exemplaireList;
         }
 
