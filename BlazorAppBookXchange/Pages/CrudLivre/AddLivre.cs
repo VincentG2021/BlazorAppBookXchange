@@ -5,7 +5,7 @@ using System.Net.Http.Json;
 
 namespace BlazorAppBookXchange.Pages.CrudLivre
 {
-    public partial class EditLivre : ComponentBase
+    public partial class AddLivre : ComponentBase
     {
         [Inject]
         private ApiRequester _requester { get; set; }
@@ -19,12 +19,12 @@ namespace BlazorAppBookXchange.Pages.CrudLivre
         [Inject]
         private AccountManager accountManager { get; set; }
 
-        public EditLivreModel editLivre { get; set; }
+        public AddLivreModel addLivre { get; set; }
         public string Token { get; set; }
 
-        public EditLivre()
+        public AddLivre()
         {
-            editLivre = new EditLivreModel();
+            addLivre = new AddLivreModel();
         }
 
         protected override async Task OnInitializedAsync()
@@ -41,7 +41,7 @@ namespace BlazorAppBookXchange.Pages.CrudLivre
         {
             string Token = await accountManager.GetToken("token");
 
-            LivreModel lm = await _requester.Put<EditLivreModel, LivreModel>("https://localhost:7144/LivreApi/UpdateLivre", editLivre, Token);
+            LivreModel lm = await _requester.Post<AddLivreModel, LivreModel>("https://localhost:7144/LivreApi/CreateLivre", addLivre, Token);
 
             if (lm != null)
             {
