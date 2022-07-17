@@ -1,9 +1,10 @@
 ﻿@page "/editlivre"
 
-<h3>Ajoutez un ouvrage dans la liste commune de BookXchange</h3>
+<h3>Modifiez les données d'un ouvrage dans la liste commune de BookXchange</h3>
 
 <EditForm Model="editLivre" OnValidSubmit="SubmitEditLivreForm">
     <DataAnnotationsValidator />
+    <InputNumber @bind-Value=editLivre.IdLivre></InputNumber>
     <p>
         Titre : <InputText @bind-Value=editLivre.Titre/>
     </p>

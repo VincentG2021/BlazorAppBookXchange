@@ -68,6 +68,26 @@ namespace BlazorAppBookXchange.Tools
             }
         }
 
+        public async Task<TResult> Put<TEntity, TResult>(string url, TEntity entity, string token = null)
+        {
+            if (token != null)
+                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            string json = JsonConvert.SerializeObject(entity);
+            HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            using (HttpResponseMessage responseMessage = await _client.PutAsync(url, content))
+            {
+                if (!responseMessage.IsSuccessStatusCode)
+                {
+                    //throw new HttpRequestException();
+                    return default(TResult);
+                }
+
+                return await responseMessage.Content.ReadFromJsonAsync<TResult>();
+            }
+        }
+
         public async void Delete(string url, int id, string token = null)
         {
             if (token != null)
