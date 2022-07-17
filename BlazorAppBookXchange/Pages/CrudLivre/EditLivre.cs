@@ -41,7 +41,7 @@ namespace BlazorAppBookXchange.Pages.CrudLivre
         {
             string Token = await accountManager.GetToken("token");
 
-            LivreModel lm = await _requester.Post<EditLivreModel, LivreModel>("https://localhost:7144/BookXchangeAPI/LivreApi/AddLivre", editLivre, Token);
+            LivreModel lm = await _requester.Post<EditLivreModel, LivreModel>("https://localhost:7144/LivreApi/AddLivre", editLivre, Token);
 
             if (lm != null)
             {
@@ -50,11 +50,11 @@ namespace BlazorAppBookXchange.Pages.CrudLivre
                     navigationManager.NavigateTo("/login");
                     return;
                 }
-                navigationManager.NavigateTo("/editlivre");
+                navigationManager.NavigateTo("/booklist");
             }
             else
             {
-                navigationManager.NavigateTo("/booklist");
+                navigationManager.NavigateTo("/");
             }
 
 
