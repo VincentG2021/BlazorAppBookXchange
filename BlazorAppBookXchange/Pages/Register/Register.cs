@@ -1,4 +1,5 @@
 ﻿using BlazorAppBookXchange.Models;
+using BlazorAppBookXchange.Tools;
 using Microsoft.AspNetCore.Components;
 using System.Net.Http.Json;
 
@@ -6,8 +7,14 @@ namespace BlazorAppBookXchange.Pages.Register
 {
     public partial class Register
     {
+        //[Inject]
+        //HttpClient Http { get; set; }
+
         [Inject]
-        HttpClient Http { get; set; }
+        private ApiRequester _requester { get; set; }
+
+        [Inject]
+        private AccountManager accountManager { get; set; }
 
         [Inject]
         private NavigationManager navigationManager { get; set; }
@@ -18,16 +25,31 @@ namespace BlazorAppBookXchange.Pages.Register
         {
             nouveauMembre = new MembreModel();
         }
+
         public async Task SubmitForm()
         {
-            //dataset.Add(nouveauMembre);
-            using var response = await Http.PostAsJsonAsync<MembreModel>("https://localhost:7144/api/BookXchangeAPI/RegisterMembre", nouveauMembre);
-            MembreModel nouveauMembreOK = await response.Content.ReadFromJsonAsync<MembreModel>();
+            ConnectedMember mm = await _requester.Post<MembreModel, ConnectedMember>("https://localhost:7144/bookxchangeapi/Register", nouveauMembre);
 
-            //nouveauMembre = await Http.PostAsJsonAsync<MembreModel>("https://localhost:7144/api/BookXchangeAPI/RegisterMembre", nouveauMembre);
-            navigationManager.NavigateTo("/memberlist");
+            if (mm != null)
+            {
+                if (mm.Token is null)
+                {
+                    navigationManager.NavigateTo("/");
+                    return;
+                }
+
+                await accountManager.SetToken("token", mm.Token);
+                await accountManager.SetIdMembre("idMembre", mm.IdMembre);
+                await accountManager.SetPseudo("pseudo", mm.Pseudo);
+                await accountManager.checkIfTokenStored();
+                int idConnectedMember = mm.IdMembre;
+
+                navigationManager.NavigateTo($"/memberprofile/{idConnectedMember}");
+            }
+            else
+            {
+                navigationManager.NavigateTo("/register");
+            }
         }
-
-
     }
 }

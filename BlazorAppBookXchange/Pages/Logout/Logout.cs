@@ -14,6 +14,7 @@ namespace BlazorAppBookXchange.Pages.Logout
         protected override async Task OnInitializedAsync()
         {
             await accountManager.RemoveToken("token");
+            await accountManager.RemoveMemberInfos();
 
             navigationManager.NavigateTo("/");
 
