@@ -94,7 +94,12 @@ namespace BlazorAppBookXchange.Tools
             await _storageService.removeItem(Key);
             IsTokenPresent = false;
             IsConnected = false;
-
+        }
+        
+        public async Task RemoveMemberInfos()
+        {
+            await _storageService.removeItem("idMembre");
+            await _storageService.removeItem("pseudo");
         }
     }
 }
