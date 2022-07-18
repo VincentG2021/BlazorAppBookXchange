@@ -1,0 +1,20 @@
+﻿@page "/deletelivre"
+
+<h3>Supprimez un ouvrage dans la liste commune de BookXchange</h3>
+
+@*<EditForm Model="addLivre" OnValidSubmit="SubmitEditLivreForm">
+    <DataAnnotationsValidator />
+    <p>
+        Titre : <InputText @bind-Value=addLivre.Titre/>
+    </p>
+    <p>
+        Auteur : <InputText @bind-Value=addLivre.Auteur />
+    </p>
+    <p>
+        Synopsis : <InputTextArea @bind-Value=addLivre.Synopsis />
+    </p>
+    <button class="btn btn-success" type="submit">Valider</button>
+    <ValidationSummary />
+</EditForm>*@
+
+                    <button @onclick='() => SubmitDeleteLivre(10)' style="cursor:pointer;">SUPPRIMER</button>

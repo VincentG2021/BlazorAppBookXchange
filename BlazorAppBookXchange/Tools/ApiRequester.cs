@@ -33,7 +33,7 @@ namespace BlazorAppBookXchange.Tools
 
         public async Task<TResult> Get<TResult>(string url, string token = null)
         {
-            if(token != null)
+            if (token != null)
                 _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             using (HttpResponseMessage message = await _client.GetAsync(url))
@@ -88,7 +88,7 @@ namespace BlazorAppBookXchange.Tools
             }
         }
 
-        public async void Delete(string url, int id, string token = null)
+        public async Task<TResult> Delete<TResult>(string url, int id, string token = null)
         {
             if (token != null)
                 _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -97,6 +97,8 @@ namespace BlazorAppBookXchange.Tools
             {
                 if (!message.IsSuccessStatusCode)
                     throw new HttpRequestException();
+
+                return await message.Content.ReadFromJsonAsync<TResult>();
             }
         }
 
