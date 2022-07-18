@@ -40,24 +40,21 @@ namespace BlazorAppBookXchange.Pages.CrudLivre
         public async Task SubmitEditLivreForm()
         {
             string Token = await accountManager.GetToken("token");
-
-            LivreModel lm = await _requester.Put<EditLivreModel, LivreModel>("https://localhost:7144/LivreApi/UpdateLivre", editLivre, Token);
-
-            if (lm != null)
+            if (Token is null)
             {
-                if (Token is null)
-                {
-                    navigationManager.NavigateTo("/login");
-                    return;
-                }
+                navigationManager.NavigateTo("/login");
+                return;
+            }
+
+            bool isUpdated = await _requester.Put<EditLivreModel, bool>("https://localhost:7144/LivreApi/UpdateLivre", editLivre, Token);
+
+            if (isUpdated)
+            {
                 navigationManager.NavigateTo("/booklist");
-            }
-            else
-            {
-                navigationManager.NavigateTo("/");
+                return;
             }
 
-
+            navigationManager.NavigateTo("/");
         }
     }
 }
