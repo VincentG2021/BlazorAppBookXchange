@@ -26,15 +26,22 @@ namespace BlazorAppBookXchange.Pages.BookList
 
         protected override async Task OnInitializedAsync()
         {
-            bool isTokenPresent = await accountManager.checkIfTokenStored();
-            if (!accountManager.IsConnected && !isTokenPresent)
-            {
-                navigationManager.NavigateTo("/login");
-                return;
-            }
-            string Token = await accountManager.GetToken("token");
-            //bookList = await Http.GetFromJsonAsync<List<LivreModel>>("https://localhost:7144/BookXchangeAPI/GetBookList");
-            bookList = await _requester.Get<List<LivreModel>>("https://localhost:7144/BookXchangeAPI/GetBookList", Token);
+            //AVEC [Autorize("isConnected")] dans BookXchangeBE.API:
+
+            //bool isTokenPresent = await accountManager.checkIfTokenStored();
+            //if (!accountManager.IsConnected && !isTokenPresent)
+            //{
+            //    navigationManager.NavigateTo("/login");
+            //    return;
+            //}
+            //string Token = await accountManager.GetToken("token");
+            ////bookList = await Http.GetFromJsonAsync<List<LivreModel>>("https://localhost:7144/BookXchangeAPI/GetBookList");
+            //bookList = await _requester.Get<List<LivreModel>>("https://localhost:7144/BookXchangeAPI/GetBookList", Token);
+
+
+            //SANS [Autorize("isConnected")], AVEC [AllowAnonymous] dans BookXchangeBE.API:
+            bookList = await _requester.Get<List<LivreModel>>("https://localhost:7144/BookXchangeAPI/GetBookList");
+
 
         }
 
