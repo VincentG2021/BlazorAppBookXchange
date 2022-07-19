@@ -1,9 +1,82 @@
-﻿<h3>EditionList</h3>
+﻿@page "/editionlist"
+@using BlazorAppBookXchange.Models
+@using BlazorAppBookXchange.Pages.EditionList
+
+
+<h3>EditionList</h3>
 
 @if(!(@Selected is null))
 {
     <p>Ref : @Selected.IdLivre</p>
 }
+
+@*onchange="GetSelectedBookEditions"*@
+
+
+@if (editionsList == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Auteur</th>
+                <th>Synopsis</th>
+                <th>Details</th>
+                @if(accountManager.IsTokenPresent)
+                {
+                    <th>Actions</th>
+                    
+                }
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var edition in editionsList)
+            {
+                <tr>
+                    <td>@edition.Isbn</td>
+                    <td>@edition.Parution</td>
+                    <td>@edition.Format</td>
+@*                    <td @onclick='() => SetSelected(edition)' style="cursor:pointer;">@edition.IdLivre</td>
+*@                    <td>
+                        <div class="dropdown">
+                            <select class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                Actions
+                                <option value="Select" selected disabled="disabled">Actions</option>
+@*                                <option value="try" @onclick='() => GoToBookDetails(edition.IdLivre)'>Détails</option>
+                                <option value="Two" @onclick='() => GoToBookEdit()'>Editer</option>
+*@                            </select>
+                        </div>
+                      </td>
+                </tr>
+            }
+
+@*            if(EditionsByBookList != null)
+            {
+                @foreach (var edition in EditionsByBookList)
+                {
+                    <tr>
+                        <td>@edition.Isbn</td>
+                        <td>@edition.Parution</td>
+                        <td>@edition.Format</td>
+                    </tr>
+                }
+            }
+*@
+        </tbody>
+    </table>
+}
+
+
+
+
+
+
+
 @code {
 
 }
