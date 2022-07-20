@@ -20,7 +20,6 @@ else
                 <th>Titre</th>
                 <th>Auteur</th>
                 <th>Synopsis</th>
-                <th>REF</th>
                 <th>Details</th>
                 @if(accountManager.IsTokenPresent)
                 {
@@ -33,25 +32,23 @@ else
 
             @foreach (var book in bookList)
             {
-                <tr>
+                <tr @onclick='() => SetSelected(book.IdLivre, book.Titre)' style="cursor:pointer;">
                     <td>@book.Titre</td>
                     <td>@book.Auteur</td>
-                    <td>@book.Synopsis</td>
+                    <td>@book.Synopsis <i class="bi bi-stars"></i></td>
                     
-                    <td @onclick='() => SetSelected(book)' style="cursor:pointer;">@book.IdLivre</td>
-                    
+                    <td><i class="bi bi-book"></i> Editions</td>
 
-                    <td @onclick='() => GetSelectedBookEditions(book)' style="cursor:pointer;">@book.IdLivre</td>
-                    
-<td>
-                        <div class="dropdown">
+                    <td>
+@*                        <div class="dropdown">
                             <select class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                 Actions
                                 <option value="Select" selected disabled="disabled">Actions</option>
-                                <option value="try" @onclick='() => GoToBookDetails(book.IdLivre)'>Détails</option>
-                                <option value="Two" @onclick='() => GoToBookEdit()'>Editer</option>
+                                <option value="voirEditions" @onclick='() => voirEditions(book.IdLivre, book.Titre)'>Détails</option>
+                                <option value="voirExemplaires" @onclick='() => GoToBookEdit()'>Editer</option>
                             </select>
                         </div>
+*@
 
 @*                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <li>
@@ -85,6 +82,11 @@ else
     </table>
 }
 
-
-<EditionList Selected="@Selected" ></EditionList>
-@*EditionsByBookList="@EditionsByBookList"*@
+@if(IdSelectedBook !=0)
+{
+    <EditionList IdSelectedBook="@IdSelectedBook" TitreSelectedBook="@TitreSelectedBook"></EditionList>
+}
+else
+{
+    <p>Aucun livre sélectionné</p>
+}

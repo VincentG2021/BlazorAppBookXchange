@@ -5,14 +5,11 @@ namespace BlazorAppBookXchange.Tools
 {
     public class AccountManager
     {
-        [Inject]
-        private ILocalStorageService _storageService { get; set; }
-
+        [Inject] private ILocalStorageService _storageService { get; set; }
 
         private bool _isConnected;
         private bool _isTokenPresent;
         public event Action OnChange;
-
 
         public bool IsConnected
         {

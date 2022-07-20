@@ -1,31 +1,26 @@
 ﻿@page "/editionlist"
 @using BlazorAppBookXchange.Models
 @using BlazorAppBookXchange.Pages.EditionList
+@using BlazorAppBookXchange.Pages.ExemplaireCard
 
 
-<h3>EditionList</h3>
+<h3>Editions recensées dans BookXchange:</h3>
+        
+@*        <p>IdSelectedBook : @IdSelectedBook</p>
+        <p>Livre sélectionné : @TitreSelectedBook</p>
+*@
 
-@if(!(@Selected is null))
-{
-    <p>Ref : @Selected.IdLivre</p>
-}
-
-@*onchange="GetSelectedBookEditions"*@
+        <button class="btn btn-primary" @onclick="ShowEditionsByBook">Livre sélectionné : @TitreSelectedBook <br /> Cliquez ici pour lancer la recherche</button>
 
 
-@if (editionsList == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Titre</th>
-                <th>Auteur</th>
-                <th>Synopsis</th>
-                <th>Details</th>
+                <th>ISBN</th>
+                <th>Date de parution</th>
+                <th>Format</th>
+                <th>Id Edition</th>
+                
                 @if(accountManager.IsTokenPresent)
                 {
                     <th>Actions</th>
@@ -34,49 +29,32 @@ else
             </tr>
         </thead>
         <tbody>
-
-            @foreach (var edition in editionsList)
+            @if (editionsList == null)
             {
-                <tr>
-                    <td>@edition.Isbn</td>
-                    <td>@edition.Parution</td>
-                    <td>@edition.Format</td>
-@*                    <td @onclick='() => SetSelected(edition)' style="cursor:pointer;">@edition.IdLivre</td>
-*@                    <td>
-                        <div class="dropdown">
-                            <select class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                Actions
-                                <option value="Select" selected disabled="disabled">Actions</option>
-@*                                <option value="try" @onclick='() => GoToBookDetails(edition.IdLivre)'>Détails</option>
-                                <option value="Two" @onclick='() => GoToBookEdit()'>Editer</option>
-*@                            </select>
-                        </div>
-                      </td>
-                </tr>
+            <p><em>Loading...</em></p>
             }
-
-@*            if(EditionsByBookList != null)
+            else
             {
-                @foreach (var edition in EditionsByBookList)
+                @foreach (var edition in editionsByBookList)
                 {
                     <tr>
                         <td>@edition.Isbn</td>
                         <td>@edition.Parution</td>
                         <td>@edition.Format</td>
+                        <td>@edition.IdEdition</td>
+                        <td @onclick='() => SetSelected(edition.IdEdition)' style="cursor:pointer;">Voir exemplaires</td>
                     </tr>
                 }
             }
-*@
         </tbody>
     </table>
-}
 
 
-
-
-
-
-
-@code {
-
-}
+    @if(IdSelectedEdition !=0)
+    {
+        <ExemplaireCard Text="@IdSelectedEdition.ToString()" IdSelectedEdition="@IdSelectedEdition"></ExemplaireCard>
+    }
+    else
+    {
+        <p>Aucune édition sélectionnée</p>
+    }

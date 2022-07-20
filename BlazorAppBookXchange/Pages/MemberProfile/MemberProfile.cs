@@ -5,11 +5,8 @@ namespace BlazorAppBookXchange.Pages.MemberProfile
 {
     public partial class MemberProfile : ComponentBase
     {
-        [Parameter]
-        public ConnectedMember connectedMember { get; set; }
-
-        [Parameter]
-        public string idConnectedMember { get; set; }
+        [Parameter] public ConnectedMember connectedMember { get; set; }
+        [Parameter] public string idConnectedMember { get; set; }
 
         //protected override void OnParametersSet()
         //{

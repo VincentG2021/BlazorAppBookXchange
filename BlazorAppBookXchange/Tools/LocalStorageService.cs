@@ -6,8 +6,7 @@ namespace BlazorAppBookXchange.Tools
 {
     public class LocalStorageService : ILocalStorageService
     {
-        [Inject]
-        private IJSRuntime _jsRuntime { get; set; }
+        [Inject] private IJSRuntime _jsRuntime { get; set; }
 
         public LocalStorageService(IJSRuntime jsRuntime)
         {

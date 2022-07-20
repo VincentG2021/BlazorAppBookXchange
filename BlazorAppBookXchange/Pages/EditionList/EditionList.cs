@@ -6,27 +6,22 @@ namespace BlazorAppBookXchange.Pages.EditionList
 {
     public partial class EditionList
     {
-
-        [Inject]
-        private NavigationManager navigationManager { get; set; }
-
-        [Inject]
-        private ApiRequester _requester { get; set; }
-
-        [Inject]
-        private AccountManager accountManager { get; set; }
-
+        [Inject] private NavigationManager navigationManager { get; set; }
+        [Inject] private ApiRequester _requester { get; set; }
+        [Inject] private AccountManager accountManager { get; set; }
 
         public List<EditionModel> editionsList = new List<EditionModel>();
 
-        [Parameter]
-        public LivreModel Selected { get; set; }
-        public int IdLivre { get; set; }
+        public List<EditionModel> editionsByBookList = new List<EditionModel>();
 
+        [Parameter] public int IdSelectedBook { get; set; }
+        [Parameter] public string TitreSelectedBook { get; set; }
+
+        public int IdSelectedEdition { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
-            //AVEC [Autorize("isConnected")] dans BookXchangeBE.API:
+            //AVEC [Autorize("isConnected")] dans EditionApi.API:
 
             //bool isTokenPresent = await accountManager.checkIfTokenStored();
             //if (!accountManager.IsConnected && !isTokenPresent)
@@ -40,31 +35,35 @@ namespace BlazorAppBookXchange.Pages.EditionList
 
 
             //SANS [Autorize("isConnected")], AVEC [AllowAnonymous] dans BookXchangeBE.API:
-            editionsList = await _requester.Get<List<EditionModel>>("https://localhost:7144/EditionApi/GetEditionList");
+            //editionsList = await _requester.Get<List<EditionModel>>("https://localhost:7144/EditionApi/GetEditionList");
 
 
-            if(Selected != null)
-            {
-                IdLivre = Selected.IdLivre;
-                editionsList = await _requester.Get<List<EditionModel>>($"https://localhost:7144/EditionApi/GetEditionByLivre/{IdLivre}");
-            }
-
-
+            //if(IdSelectedBook != null)
+            //{
+            //    editionsByBookList = await _requester.Get<List<EditionModel>>($"https://localhost:7144/EditionApi/GetEditionByLivre/{IdSelectedBook}");
+            //}
 
             await accountManager.checkIfTokenStored();
+            accountManager.OnChange += StateHasChanged;        
+        }
 
-            accountManager.OnChange += StateHasChanged;
+        private async Task<List<EditionModel>> ShowEditionsByBook()
+        {
+                return editionsByBookList = await _requester.Get<List<EditionModel>>($"https://localhost:7144/EditionApi/GetEditionByLivre/{IdSelectedBook}");
+
+                //await OnSelectedBook.InvokeAsync(currentCount);
+                //StateHasChanged();
+        }
+
+        public void SetSelected(int IdEdition)
+        {
+            IdSelectedEdition = IdEdition;
+            StateHasChanged();
         }
 
         public void Dispose()
         {
             accountManager.OnChange -= StateHasChanged;
-        }
-
-
-        public void SetSelected(LivreModel book)
-        {
-            Selected = book;
         }
 
         //public void GoToBookDetails(int id)

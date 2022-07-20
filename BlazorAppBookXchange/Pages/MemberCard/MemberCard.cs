@@ -6,14 +6,9 @@ namespace BlazorAppBookXchange.Pages.MemberCard
 {
     public partial class MemberCard
     {
-        [Inject]
-        private AccountManager accountManager { get; set; }
-
-        [Inject]
-        private NavigationManager navigationManager { get; set; }
-
-        [Inject]
-        private ApiRequester _requester { get; set; }
+        [Inject] private AccountManager accountManager { get; set; }
+        [Inject] private NavigationManager navigationManager { get; set; }
+        [Inject] private ApiRequester _requester { get; set; }
 
         public ConnectedMember connectedMember = new ConnectedMember();
 

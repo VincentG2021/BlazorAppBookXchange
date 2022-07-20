@@ -8,25 +8,18 @@ namespace BlazorAppBookXchange.Pages.ExemplaireList
 {
     public partial class ExemplaireList
     {
-        [Inject]
-        HttpClient Http { get; set; }
+        //[Inject]
+        //HttpClient Http { get; set; }
 
-        [Inject]
-        private NavigationManager navigationManager { get; set; }
-
-        [Inject]
-        private ApiRequester _requester { get; set; }
-
-        [Inject]
-        private AccountManager accountManager { get; set; }
-
+        [Inject] private NavigationManager navigationManager { get; set; }
+        [Inject] private ApiRequester _requester { get; set; }
+        [Inject] private AccountManager accountManager { get; set; }
 
         public List<ExemplaireModel> exemplaireList = new List<ExemplaireModel>();
 
         public ExemplaireModel Selected { get; set; }
 
-        [Parameter]
-        public int IdMembre { get; set; }
+        [Parameter] public int IdMembre { get; set; }
 
         protected override async Task OnInitializedAsync()
         {

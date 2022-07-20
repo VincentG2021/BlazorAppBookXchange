@@ -7,20 +7,12 @@ namespace BlazorAppBookXchange.Pages.MemberList
 {
     public partial class MemberList
     {
+        //[Inject]
+        //HttpClient Http { get; set; }
 
-        [Inject]
-        private ApiRequester _requester { get; set; }
-
-        [Inject]
-        HttpClient Http { get; set; }
-
-        [Inject]
-        private NavigationManager navigationManager { get; set; }
-
-        [Inject]
-        private AccountManager accountManager { get; set; }
-
-
+        [Inject] private ApiRequester _requester { get; set; }
+        [Inject] private NavigationManager navigationManager { get; set; }
+        [Inject] private AccountManager accountManager { get; set; }
 
         public List<MembreModel> memberList = new List<MembreModel>();
         protected override async Task OnInitializedAsync()
