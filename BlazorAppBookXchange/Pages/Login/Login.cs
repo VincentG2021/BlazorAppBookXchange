@@ -6,18 +6,12 @@ namespace BlazorAppBookXchange.Pages.Login
 {
     public partial class Login : ComponentBase
     {
+        //[Inject]
+        //HttpClient Http { get; set; }
 
-        [Inject]
-        private ApiRequester _requester { get; set; }
-
-        [Inject]
-        HttpClient Http { get; set; }
-
-        [Inject]
-        private NavigationManager navigationManager { get; set; }
-
-        [Inject]
-        private AccountManager accountManager { get; set; }
+        [Inject] private ApiRequester _requester { get; set; }
+        [Inject] private NavigationManager navigationManager { get; set; }
+        [Inject] private AccountManager accountManager { get; set; }
 
         public LoginMembreModel membreLogin { get; set; }
         public string Token { get; set; }

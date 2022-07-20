@@ -1,0 +1,69 @@
+﻿<h3>ExemplaireCard</h3>
+
+<div class="tooltip-wrapper">
+    <span>@Text</span>
+
+    <h3>Exemplaires enregistrés dans BookXchange:</h3>
+        
+@*        <p>IdSelectedBook : @IdSelectedBook</p>
+        <p>Livre sélectionné : @TitreSelectedBook</p>
+*@
+
+@*        <button class="btn btn-primary" @onclick="ShowEditionsByBook">Livre sélectionné : @TitreSelectedBook <br /> Cliquez ici pour lancer la recherche</button>
+*@
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Ref exemplaire</th>
+                <th>Ref edition</th>
+                <th>Titre</th>
+                <th>Ref membre</th>
+
+@*                <th>ISBN</th>
+                <th>Date de parution</th>
+                <th>Format</th>
+                <th>Id Edition</th>
+*@                
+                @if(accountManager.IsTokenPresent)
+                {
+                    <th>Actions</th>
+                    
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @if (exemplairesByEdition == null)
+            {
+            <p><em>Loading...</em></p>
+            }
+            else
+            {
+                @foreach (var exemplaire in exemplairesByEdition)
+                {
+                    <tr>
+                        <td>@exemplaire.IdExemplaire</td>
+                        <td>@exemplaire.IdEdition</td>
+                        <td>@exemplaire.Titre</td>
+                        <td>@exemplaire.IdMembre</td>
+
+
+@*                        <td>@exemplaire.Isbn</td>
+                        <td>@exemplaire.Parution</td>
+                        <td>@exemplaire.Format</td>
+                        <td>@exemplaire.IdEdition</td>
+*@                        <td>Voir infos membre et status</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+
+
+
+    @ChildContent
+</div>
+
+
+

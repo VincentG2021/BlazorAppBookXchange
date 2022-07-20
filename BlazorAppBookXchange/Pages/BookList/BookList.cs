@@ -10,24 +10,22 @@ namespace BlazorAppBookXchange.Pages.BookList
         //[Inject]
         //HttpClient Http { get; set; }
 
-        [Inject]
-        private NavigationManager navigationManager { get; set; }
+        [Inject] private NavigationManager navigationManager { get; set; }
 
-        [Inject]
-        private ApiRequester _requester { get; set; }
+        [Inject] private ApiRequester _requester { get; set; }
 
-        [Inject]
-        private AccountManager accountManager { get; set; }
+        [Inject] private AccountManager accountManager { get; set; }
 
 
         public List<LivreModel> bookList = new List<LivreModel>();
 
-        public LivreModel Selected { get; set; }
-
         public List<EditionModel> EditionsByBookList { get; set; }
 
-        public int IdLivre { get; set; }
+        public int IdSelectedBook { get; set; }
 
+        public string TitreSelectedBook { get; set; }
+
+        public bool voirEditionsClicked;
 
         protected override async Task OnInitializedAsync()
         {
@@ -58,24 +56,29 @@ namespace BlazorAppBookXchange.Pages.BookList
         }
 
 
-        public void SetSelected(LivreModel book)
+        public void SetSelected(int idBook, string nameBook)
         {
-            Selected = book;
+            IdSelectedBook = idBook;
+            TitreSelectedBook = nameBook;
         }
 
-        public async Task<IEnumerable<EditionModel>> GetSelectedBookEditions(LivreModel book)
+        public void voirEditions(int idBook, string nameBook)
         {
-            Selected = book;
-
-            if (Selected is null)
-            {
-                return new List<EditionModel>();
-            }
-                IdLivre = Selected.IdLivre;
-            EditionsByBookList = await _requester.Get<List<EditionModel>>($"https://localhost:7144/EditionApi/GetEditionByLivre/{IdLivre}");
-            return EditionsByBookList;
-
+            IdSelectedBook = idBook;
+            TitreSelectedBook = nameBook;
+            voirEditionsClicked = true;
         }
+
+        //public async Task<IEnumerable<EditionModel>> GetSelectedBookEditions(LivreModel book)
+        //{
+        //    if (IdSelectedBook == 0)
+        //    {
+        //        return new List<EditionModel>();
+        //    }
+        //    EditionsByBookList = await _requester.Get<List<EditionModel>>($"https://localhost:7144/EditionApi/GetEditionByLivre/{IdSelectedBook}");
+        //    return EditionsByBookList;
+
+        //}
 
 
         public void GoToBookDetails(int id)
