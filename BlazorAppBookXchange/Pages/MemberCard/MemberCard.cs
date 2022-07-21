@@ -23,10 +23,10 @@ namespace BlazorAppBookXchange.Pages.MemberCard
 
             string Token = await accountManager.GetToken("token");
             connectedMember.Pseudo = await accountManager.GetPseudo("pseudo");
-            //string Pseudo = await _requester.Get<ConnectedMember>("https://localhost:7144/BookXchangeAPI/GetConnectedMember/", Token);
+            //string Pseudo = await _requester.Get<ConnectedMember>("GetConnectedMember/", Token);
 
-            //memberList = await Http.GetFromJsonAsync<List<MembreModel>>("https://localhost:7144/BookXchangeAPI/GetMemberList");
-            //connectedMember = await _requester.Get<ConnectedMember>($"https://localhost:7144/BookXchangeAPI/GetConnectedMember/{Pseudo}", Token);
+            //memberList = await Http.GetFromJsonAsync<List<MembreModel>>("GetMemberList");
+            //connectedMember = await _requester.Get<ConnectedMember>($"GetConnectedMember/{Pseudo}", Token);
 
 
         }

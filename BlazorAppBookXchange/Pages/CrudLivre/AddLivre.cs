@@ -41,7 +41,7 @@ namespace BlazorAppBookXchange.Pages.CrudLivre
         {
             string Token = await accountManager.GetToken("token");
 
-            LivreModel lm = await _requester.Post<AddLivreModel, LivreModel>("https://localhost:7144/LivreApi/CreateLivre", addLivre, Token);
+            LivreModel lm = await _requester.Post<AddLivreModel, LivreModel>("Livre/CreateLivre", addLivre, Token);
 
             if (lm != null)
             {

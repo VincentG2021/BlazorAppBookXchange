@@ -46,7 +46,7 @@ namespace BlazorAppBookXchange.Pages.CrudLivre
                 return;
             }
 
-            bool isUpdated = await _requester.Put<EditLivreModel, bool>("https://localhost:7144/LivreApi/UpdateLivre", editLivre, Token);
+            bool isUpdated = await _requester.Put<EditLivreModel, bool>("Livre/UpdateLivre", editLivre, Token);
 
             if (isUpdated)
             {

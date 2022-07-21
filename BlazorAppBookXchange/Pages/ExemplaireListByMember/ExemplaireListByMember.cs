@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Net.Http.Json;
 
-namespace BlazorAppBookXchange.Pages.ExemplaireList
+namespace BlazorAppBookXchange.Pages.ExemplaireListByMember
 {
-    public partial class ExemplaireList
+    public partial class ExemplaireListByMember
     {
         //[Inject]
         //HttpClient Http { get; set; }
@@ -31,9 +31,9 @@ namespace BlazorAppBookXchange.Pages.ExemplaireList
             }
             string Token = await accountManager.GetToken("token");
             IdMembre = await accountManager.GetMemberId("idMembre");
-            //exemplaireList = await Http.GetFromJsonAsync<List<ExemplaireModel>>($"https://localhost:7144/BookXchangeAPI/GetMemberExemplaireList/{IdMembre}");
+            //exemplaireList = await Http.GetFromJsonAsync<List<ExemplaireModel>>($"Exemplaire/GetExemplaireListByMember/{IdMembre}");
 
-            exemplaireList = await _requester.Get<List<ExemplaireModel>>($"https://localhost:7144/BookXchangeAPI/GetMemberExemplaireList/{IdMembre}", Token);
+            exemplaireList = await _requester.Get<List<ExemplaireModel>>($"Exemplaire/GetExemplaireListByMember/{IdMembre}", Token);
 
         }
 
@@ -42,7 +42,7 @@ namespace BlazorAppBookXchange.Pages.ExemplaireList
             string Token = await accountManager.GetToken("token");
             IdMembre = await accountManager.GetMemberId("idMembre");
 
-            exemplaireList = await _requester.Get<List<ExemplaireModel>>($"https://localhost:7144/BookXchangeAPI/GetMemberExemplaireList/{IdMembre}", Token);
+            exemplaireList = await _requester.Get<List<ExemplaireModel>>($"Exemplaire/GetExemplaireListByMember/{IdMembre}", Token);
             return exemplaireList;
         }
 

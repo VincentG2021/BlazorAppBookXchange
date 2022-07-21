@@ -38,12 +38,12 @@ namespace BlazorAppBookXchange.Pages.BookList
             //    return;
             //}
             //string Token = await accountManager.GetToken("token");
-            ////bookList = await Http.GetFromJsonAsync<List<LivreModel>>("https://localhost:7144/BookXchangeAPI/GetBookList");
-            //bookList = await _requester.Get<List<LivreModel>>("https://localhost:7144/BookXchangeAPI/GetBookList", Token);
+            ////bookList = await Http.GetFromJsonAsync<List<LivreModel>>("GetBookList");
+            //bookList = await _requester.Get<List<LivreModel>>("GetBookList", Token);
 
 
             //SANS [Autorize("isConnected")], AVEC [AllowAnonymous] dans BookXchangeBE.API:
-            bookList = await _requester.Get<List<LivreModel>>("https://localhost:7144/BookXchangeAPI/GetBookList");
+            bookList = await _requester.Get<List<LivreModel>>("GetBookList");
                
             await accountManager.checkIfTokenStored();
 
@@ -75,7 +75,7 @@ namespace BlazorAppBookXchange.Pages.BookList
         //    {
         //        return new List<EditionModel>();
         //    }
-        //    EditionsByBookList = await _requester.Get<List<EditionModel>>($"https://localhost:7144/EditionApi/GetEditionByLivre/{IdSelectedBook}");
+        //    EditionsByBookList = await _requester.Get<List<EditionModel>>($"Edition/GetEditionByLivre/{IdSelectedBook}");
         //    return EditionsByBookList;
 
         //}

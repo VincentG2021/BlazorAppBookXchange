@@ -31,17 +31,17 @@ namespace BlazorAppBookXchange.Pages.ExemplaireCard
             //    return;
             //}
             //string Token = await accountManager.GetToken("token");
-            ////exemplairesList = await Http.GetFromJsonAsync<List<ExemplaireModel>>("https://localhost:7144/ExemplaireApi/GetAllExemplairesList");
-            //exemplairesList = await _requester.Get<List<ExemplaireModel>>("https://localhost:7144/ExemplaireApi/GetAllExemplairesList", Token);
+            ////exemplairesList = await Http.GetFromJsonAsync<List<ExemplaireModel>>("Exemplaire/GetAllExemplairesList");
+            //exemplairesList = await _requester.Get<List<ExemplaireModel>>("Exemplaire/GetAllExemplairesList", Token);
 
 
             //SANS[Autorize("isConnected")], AVEC[AllowAnonymous] dans BookXchangeBE.API:
-            //exemplairesList = await _requester.Get<List<ExemplaireModel>>("https://localhost:7144/ExemplaireApi/GetAllExemplairesList");
+            //exemplairesList = await _requester.Get<List<ExemplaireModel>>("Exemplaire/GetAllExemplairesList");
             //pidSelectedEdition = IdSelectedEdition;
 
             if (IdSelectedEdition != 0)
             {
-                exemplairesByEdition = await _requester.Get<List<ExemplaireModel>>($"https://localhost:7144/ExemplaireApi/GetExemplairebyEdition/{IdSelectedEdition}");
+                exemplairesByEdition = await _requester.Get<List<ExemplaireModel>>($"Exemplaire/GetExemplairebyEdition/{IdSelectedEdition}");
             }
 
             await accountManager.checkIfTokenStored();

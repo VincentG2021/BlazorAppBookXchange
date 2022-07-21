@@ -28,7 +28,7 @@ namespace BlazorAppBookXchange.Pages.Register
 
         public async Task SubmitForm()
         {
-            ConnectedMember mm = await _requester.Post<MembreModel, ConnectedMember>("https://localhost:7144/bookxchangeapi/Register", nouveauMembre);
+            ConnectedMember mm = await _requester.Post<MembreModel, ConnectedMember>("membre/register", nouveauMembre);
 
             if (mm != null)
             {

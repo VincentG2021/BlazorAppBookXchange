@@ -61,7 +61,7 @@ else
         
         //stagiaires = await Http.GetFromJsonAsync<Stagiaire>("api/user/1");
 
-        bookList = await Requester.Get<IEnumerable<LivreModel>>("https://localhost:7144/BookXchangeAPI/GetBookList", token);
+        bookList = await Requester.Get<IEnumerable<LivreModel>>("GetBookList", token);
 
     }
 

@@ -26,8 +26,8 @@ namespace BlazorAppBookXchange.Pages.MemberList
 
             string Token = await accountManager.GetToken("token");
 
-            //memberList = await Http.GetFromJsonAsync<List<MembreModel>>("https://localhost:7144/BookXchangeAPI/GetMemberList");
-            memberList = await _requester.Get<List<MembreModel>>("https://localhost:7144/BookXchangeAPI/GetMemberList", Token);
+            //memberList = await Http.GetFromJsonAsync<List<MembreModel>>("GetMemberList");
+            memberList = await _requester.Get<List<MembreModel>>("GetMemberList", Token);
 
 
         }
