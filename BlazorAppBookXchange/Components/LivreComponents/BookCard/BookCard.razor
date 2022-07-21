@@ -1,0 +1,36 @@
+﻿@page "/bookcard"
+@using BlazorAppBookXchange.Models
+@using BlazorAppBookXchange.Components.EditionList
+
+@if (bookList == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        @foreach (var book in bookList)
+        {
+
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@book.Titre</h5>
+                        <p class="card-text">@book.Auteur</p>
+                        <p class="card-text">@book.Synopsis</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@if (IdSelectedBook != 0)
+{
+    <EditionList IdSelectedBook="@IdSelectedBook" TitreSelectedBook="@TitreSelectedBook"></EditionList>
+}
+else
+{
+    <p>Aucun livre sélectionné</p>
+}

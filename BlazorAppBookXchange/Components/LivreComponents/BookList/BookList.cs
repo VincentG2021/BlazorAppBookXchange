@@ -3,7 +3,7 @@ using BlazorAppBookXchange.Tools;
 using Microsoft.AspNetCore.Components;
 using System.Net.Http.Json;
 
-namespace BlazorAppBookXchange.Pages.BookList
+namespace BlazorAppBookXchange.Components.LivreComponents.BookList
 {
     public partial class BookList
     {
@@ -11,19 +11,15 @@ namespace BlazorAppBookXchange.Pages.BookList
         //HttpClient Http { get; set; }
 
         [Inject] private NavigationManager navigationManager { get; set; }
-
         [Inject] private ApiRequester _requester { get; set; }
-
         [Inject] private AccountManager accountManager { get; set; }
 
-
         public List<LivreModel> bookList = new List<LivreModel>();
-
         public List<EditionModel> EditionsByBookList { get; set; }
-
         public int IdSelectedBook { get; set; }
-
         public string TitreSelectedBook { get; set; }
+
+        public bool ShowExemplaires { get; set; }
 
         public bool voirEditionsClicked;
 
@@ -43,8 +39,9 @@ namespace BlazorAppBookXchange.Pages.BookList
 
 
             //SANS [Autorize("isConnected")], AVEC [AllowAnonymous] dans BookXchangeBE.API:
-            bookList = await _requester.Get<List<LivreModel>>("GetBookList");
-               
+            //bookList = await _requester.Get<List<LivreModel>>("membre/GetBookList"); 
+            bookList = await _requester.Get<List<LivreModel>>("livre/ReadLivreList"); 
+
             await accountManager.checkIfTokenStored();
 
             accountManager.OnChange += StateHasChanged;
@@ -55,9 +52,19 @@ namespace BlazorAppBookXchange.Pages.BookList
             accountManager.OnChange -= StateHasChanged;
         }
 
-
         public void SetSelected(int idBook, string nameBook)
         {
+            IdSelectedBook = idBook;
+            TitreSelectedBook = nameBook;
+        }
+
+        public void ShowExemplairesByBook(int idBook, string nameBook)
+        {
+            ShowExemplaires = false;
+            StateHasChanged();
+            Console.WriteLine($"{ShowExemplaires}");
+            ShowExemplaires = true;
+            Console.WriteLine($"{ShowExemplaires}");
             IdSelectedBook = idBook;
             TitreSelectedBook = nameBook;
         }
