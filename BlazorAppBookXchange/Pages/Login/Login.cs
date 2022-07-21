@@ -23,9 +23,9 @@ namespace BlazorAppBookXchange.Pages.Login
 
         public async Task SubmitLoginForm()
         {
-            //using var response = await Http.PostAsJsonAsync<LoginMembreModel>("https://localhost:7144/BookXchangeAPI/Login/auth", membreLogin);
+            //using var response = await Http.PostAsJsonAsync<LoginMembreModel>("Membre/Login", membreLogin);
 
-            ConnectedMember mm = await _requester.Post<LoginMembreModel, ConnectedMember>("https://localhost:7144/bookxchangeapi/login/auth", membreLogin);
+            ConnectedMember mm = await _requester.Post<LoginMembreModel, ConnectedMember>("membre/login", membreLogin);
 
 
             //if (response.IsSuccessStatusCode)

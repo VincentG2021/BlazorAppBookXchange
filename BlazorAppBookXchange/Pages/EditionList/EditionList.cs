@@ -30,17 +30,17 @@ namespace BlazorAppBookXchange.Pages.EditionList
             //    return;
             //}
             //string Token = await accountManager.GetToken("token");
-            ////editionList = await Http.GetFromJsonAsync<List<EditionModel>>("https://localhost:7144/EditionApi/GetEditionList");
-            //editionList = await _requester.Get<List<EditionModel>>("https://localhost:7144/EditionApi/GetEditionList", Token);
+            ////editionList = await Http.GetFromJsonAsync<List<EditionModel>>("Edition/GetEditionList");
+            //editionList = await _requester.Get<List<EditionModel>>("Edition/GetEditionList", Token);
 
 
             //SANS [Autorize("isConnected")], AVEC [AllowAnonymous] dans BookXchangeBE.API:
-            //editionsList = await _requester.Get<List<EditionModel>>("https://localhost:7144/EditionApi/GetEditionList");
+            //editionsList = await _requester.Get<List<EditionModel>>("Edition/GetEditionList");
 
 
             //if(IdSelectedBook != null)
             //{
-            //    editionsByBookList = await _requester.Get<List<EditionModel>>($"https://localhost:7144/EditionApi/GetEditionByLivre/{IdSelectedBook}");
+            //    editionsByBookList = await _requester.Get<List<EditionModel>>($"Edition/GetEditionByLivre/{IdSelectedBook}");
             //}
 
             await accountManager.checkIfTokenStored();
@@ -49,7 +49,7 @@ namespace BlazorAppBookXchange.Pages.EditionList
 
         private async Task<List<EditionModel>> ShowEditionsByBook()
         {
-                return editionsByBookList = await _requester.Get<List<EditionModel>>($"https://localhost:7144/EditionApi/GetEditionByLivre/{IdSelectedBook}");
+                return editionsByBookList = await _requester.Get<List<EditionModel>>($"Edition/GetEditionByLivre/{IdSelectedBook}");
 
                 //await OnSelectedBook.InvokeAsync(currentCount);
                 //StateHasChanged();

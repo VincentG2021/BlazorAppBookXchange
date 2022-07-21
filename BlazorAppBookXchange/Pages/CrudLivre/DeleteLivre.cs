@@ -42,7 +42,7 @@ namespace BlazorAppBookXchange.Pages.CrudLivre
                 return;
             }
 
-            bool isDeleted = await _requester.Delete<bool>($"https://localhost:7144/LivreApi/DeleteLivre/", id, Token);
+            bool isDeleted = await _requester.Delete<bool>($"Livre/DeleteLivre/", id, Token);
 
             if (isDeleted)
             {

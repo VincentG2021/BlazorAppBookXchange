@@ -21,10 +21,10 @@ namespace BlazorAppBookXchange.Tools
             get { return _client; }
         }
 
-        public ApiRequester(string baseAdress)
+        public ApiRequester(string baseAddress)
         {
             _client = new HttpClient();
-            _baseAddress = baseAdress;
+            _baseAddress = baseAddress;
             _client.BaseAddress = new Uri(_baseAddress);
             _client.DefaultRequestHeaders.Accept.Clear();
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

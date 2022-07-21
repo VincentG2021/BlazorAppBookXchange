@@ -1,7 +1,7 @@
 ﻿@page "/MemberProfile/{idConnectedMember}"
 @using BlazorAppBookXchange.Pages.MemberCard
 @using BlazorAppBookXchange.Pages.BookList
-@using BlazorAppBookXchange.Pages.ExemplaireList
+@using BlazorAppBookXchange.Pages.ExemplaireListByMember
 <h3>Votre profil</h3>
 
 <p>Route path: @idConnectedMember</p>
@@ -13,9 +13,9 @@
 
 @*<Counter/>*@
 
-<MemberCard></MemberCard>
-
-<ExemplaireList></ExemplaireList>
+@*<MemberCard></MemberCard>
+*@
+<ExemplaireListByMember></ExemplaireListByMember>
 
 @code {
 
