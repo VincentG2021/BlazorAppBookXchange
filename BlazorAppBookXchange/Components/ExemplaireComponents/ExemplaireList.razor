@@ -1,0 +1,63 @@
+﻿@page "/exemplairelist"
+@using BlazorAppBookXchange.Models
+@*@using BlazorAppBookXchange.Components.ExemplaireCard
+*@
+
+@if(IdSelectedBook != 0)
+{
+    <h3>Exemplaires du livre sélectionné</h3>
+}
+        
+@*        <p>IdSelectedBook : @IdSelectedBook</p>
+        <p>Livre sélectionné : @TitreSelectedBook</p>
+*@
+
+@*        <button class="btn btn-primary" @onclick="ShowEditionsByBook">Livre sélectionné : @TitreSelectedBook <br /> Cliquez ici pour lancer la recherche</button>
+*@
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id Exemplaire</th>
+                <th>Id Livre</th>
+                <th>Titre</th>
+                <th>Format</th>
+                <th>Id Membre</th>
+                
+                @if(accountManager.IsTokenPresent)
+                {
+                    <th>Actions</th>
+                    
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @if (exemplairesByBookList == null)
+            {
+            <p><em>Loading...</em></p>
+            }
+            else
+            {
+                @foreach (var exemplaire in exemplairesByBookList)
+                {
+                    <tr>
+                        <td>@exemplaire.IdExemplaire</td>
+                        <td>@exemplaire.IdLivre</td>
+                        <td>@exemplaire.Titre</td>
+                        <td>@exemplaire.Format</td>
+                        <td>@exemplaire.IdMembre</td>
+@*                        <td @onclick='() => SetSelected(exemplaire.IdEdition)' style="cursor:pointer;">Voir exemplaires</td>
+*@                    </tr>
+                }
+            }
+
+
+        </tbody>
+    </table>
+
+@*
+    @if(IdSelectedEdition !=0)
+    {
+        <ExemplaireCard Text="@IdSelectedEdition.ToString()" IdSelectedEdition="@IdSelectedEdition"></ExemplaireCard>
+    }
+*@

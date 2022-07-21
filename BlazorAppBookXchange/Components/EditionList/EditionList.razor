@@ -1,10 +1,12 @@
 ﻿@page "/editionlist"
 @using BlazorAppBookXchange.Models
-@using BlazorAppBookXchange.Pages.EditionList
-@using BlazorAppBookXchange.Pages.ExemplaireCard
+@*@using BlazorAppBookXchange.Components.ExemplaireCard
+*@
 
-
-<h3>Editions recensées dans BookXchange:</h3>
+@if(IdSelectedBook != 0)
+{
+    <h3>Editions du livre sélectionné</h3>
+}
         
 @*        <p>IdSelectedBook : @IdSelectedBook</p>
         <p>Livre sélectionné : @TitreSelectedBook</p>
@@ -54,7 +56,4 @@
     {
         <ExemplaireCard Text="@IdSelectedEdition.ToString()" IdSelectedEdition="@IdSelectedEdition"></ExemplaireCard>
     }
-    else
-    {
-        <p>Aucune édition sélectionnée</p>
-    }
+

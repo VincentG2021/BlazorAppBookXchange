@@ -1,0 +1,38 @@
+﻿@using BlazorAppBookXchange.Components.LivreComponents
+@using BlazorAppBookXchange.Components.LivreComponents.BookCard
+
+<span @onclick=ChangeView style="cursor:pointer;">
+    <i class="bi bi-view-list">@ActionViewText</i>
+</span>
+
+<div class="row">
+    @if (!Liste)
+    {
+        @*Affichage du composant BookCard*@
+        <BookCard></BookCard>
+    }
+    else
+    {
+        <div class="col-12 card card-body">
+            @*Affichage du composant BookList (voir page Livres)*@
+            @ChildContent
+        </div>
+    }
+</div>
+@code
+{
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    //[Parameter]
+    //public RenderFragment? BookCard { get; set; }
+
+    [Parameter]
+    public bool Liste { get; set; }
+    string ActionViewText { get => Liste ? "Cliquez ici pour l'affichage en cartes" : "Cliquez ici pour l'affichage en liste"; }
+
+    void ChangeView()
+    {
+        Liste = !Liste;      
+    }
+}
