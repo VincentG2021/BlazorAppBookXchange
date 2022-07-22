@@ -1,18 +1,18 @@
 ﻿@page "/"
 @using BlazorAppBookXchange.Pages.ExemplaireCard
+@using BlazorAppBookXchange.Components.DetailsComponents
 
 
 <PageTitle>Index</PageTitle>
 
-<h1>BookXchange vous souhaite la bienvenue !</h1>
+@*<img src="../images/logo-bookXchange.jpg" title="BookXchange logo" alt="BookXchange logo" style="max-width:200px"/>
+*@
 
-<img src="../images/logo-bookXchange.jpg" title="BookXchange logo" alt="BookXchange logo" style="max-width:200px"/>
+@*<ExemplaireCard Text="Hello you"></ExemplaireCard>
+*@
 
-<ExemplaireCard Text="Hello you"></ExemplaireCard>
-
-
-<SurveyPrompt Title="How is Blazor working for you?" />
-
+@*<SurveyPrompt Title="How is Blazor working for you?" />
+*@
 
 
 <h2>For DEV</h2>
@@ -22,3 +22,23 @@
 </ul>
 
 
+<DetailsLivre Title="BookXchange vous souhaite la bienvenue." @attributes="AdditionalAttributes">
+    <VisitContent>
+        Thanks for visiting and sharing.
+
+    </VisitContent>
+
+    <Greetings>
+        Hi !
+
+    </Greetings>
+        
+</DetailsLivre>
+
+@code{
+    public Dictionary<string, object> AdditionalAttributes { get; set; } = new Dictionary<string, object>
+    {
+        { "src", "/images/logo-bookXchange.jpg" },
+        { "alt", "products image for the Home component" }
+    };
+}

@@ -2,7 +2,7 @@
 using BlazorAppBookXchange.Tools;
 using Microsoft.AspNetCore.Components;
 
-namespace BlazorAppBookXchange.Components.EditionList
+namespace BlazorAppBookXchange.Components.EditionComponents.EditionList
 {
     public partial class EditionList
     {
