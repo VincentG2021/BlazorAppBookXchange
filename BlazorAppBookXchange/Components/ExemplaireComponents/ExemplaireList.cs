@@ -47,6 +47,12 @@ namespace BlazorAppBookXchange.Components.ExemplaireComponents
             accountManager.OnChange += StateHasChanged;
         }
 
+        protected override void OnParametersSet()
+        {
+            Console.WriteLine($"OnParameterSet => IdSelectedBook: {IdSelectedBook}, TitreSelectedBook: {TitreSelectedBook}");
+        }
+
+
         private async Task<List<ExemplaireModel>> ShowExemplairesByLivre()
         {
             return exemplairesByBookList = await _requester.Get<List<ExemplaireModel>>($"Exemplaire/GetExemplaireByLivre/{IdSelectedBook}");
@@ -57,7 +63,7 @@ namespace BlazorAppBookXchange.Components.ExemplaireComponents
         public void SetSelected(int IdLivre)
         {
             IdSelectedBook = IdLivre;
-            StateHasChanged();
+            //StateHasChanged();
         }
 
         public void Dispose()
