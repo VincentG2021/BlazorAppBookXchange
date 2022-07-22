@@ -32,7 +32,7 @@
             </tr>
         </thead>
         <tbody>
-            @if (editionsList == null)
+            @if (editionsByBookList == null)
             {
             <p><em>Loading...</em></p>
             }
@@ -45,7 +45,7 @@
                         <td>@edition.Parution</td>
                         <td>@edition.Format</td>
                         <td>@edition.IdEdition</td>
-                        <td @onclick='() => SetSelected(edition.IdEdition)' style="cursor:pointer;">Voir exemplaires</td>
+                        <td @onclick='() => SetSelectedEdition(edition.IdEdition)' style="cursor:pointer;">Voir exemplaires</td>
                     </tr>
                 }
             }

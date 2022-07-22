@@ -4,7 +4,7 @@
 @using BlazorAppBookXchange.Models
 @using BlazorAppBookXchange.Components.EditionComponents.EditionList
 
-<div class="row">
+<div class="d-flex flex-column flex-lg-row">
     <div class="col-6">
 
         @if (bookList == null)
@@ -39,12 +39,12 @@
                     
 
                             <td>
-                                <i class="bi bi-info-circle" @onclick='() => SetSelected(book.IdLivre, book.Titre)' style="cursor:pointer;"></i>
+                                <i class="bi bi-info-circle" @onclick='() => ShowEditionsByBook(book)' style="cursor:pointer;"></i>
                                 Voir éditions
                             </td>
 
                             <td>
-                                <i class="bi bi-book" @onclick='() => ShowExemplairesByBook(book.IdLivre, book.Titre)' style="cursor:pointer;"></i> 
+                                <i class="bi bi-book" @onclick='() => ShowExemplairesByBook(book)' style="cursor:pointer;"></i> 
                                 Voir exemplaires
                             </td>
 
@@ -93,13 +93,18 @@
     </div>
 
     <div class="col-6">
-        @if (IdSelectedBook != 0)
+        @*@if (IdSelectedBook != 0)*@
+        @if (_ShowEditions)
         {
-                <EditionList IdSelectedBook="@IdSelectedBook" TitreSelectedBook="@TitreSelectedBook"></EditionList>
+            <EditionList SelectedBook="@_selectedBook" IdSelectedBook="@IdSelectedBook" TitreSelectedBook="@TitreSelectedBook"></EditionList>
 
         }
+        else if(!_ShowEditions)
+        {
+            <p>Aucun livre sélectionné</p>
+        }
 
-        @if (ShowExemplaires)
+        @if (_ShowExemplaires)
         {
                 <ExemplaireList IdSelectedBook="@IdSelectedBook" TitreSelectedBook="@TitreSelectedBook"></ExemplaireList>
         }
