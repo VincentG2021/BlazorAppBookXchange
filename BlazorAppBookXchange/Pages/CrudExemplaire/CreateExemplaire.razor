@@ -1,0 +1,38 @@
+﻿@page "/createExemplaire"
+
+<h3>Insérez un exemplaire d'ouvrage dans BookXchange</h3>
+
+<EditForm Model="createExemplaire" OnValidSubmit="SubmitCreateExemplaireForm">
+    <DataAnnotationsValidator />
+@*    <InputNumber type="hidden" @bind-Value="createExemplaire.IdMembre"></InputNumber>
+*@
+    <div class="form-group">
+        <label for="titre">Titre</label>
+        <InputText id="titre" @bind-Value="createExemplaire.Titre" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label for="auteur">Auteur</label>
+        <InputText id="auteur" @bind-Value="createExemplaire.Auteur" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label for="synopsis">Synopsis</label>
+        <InputTextArea id="synopsis" @bind-Value="createExemplaire.Synopsis" class="form-control" rows="10"/>
+    </div>
+    <div class="form-group">
+        <label for="isbn">ISBN</label>
+        <InputText id="isbn" @bind-Value="createExemplaire.Isbn" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label for="parution">Parution</label>
+        <InputDate id="parution" @bind-Value="createExemplaire.Parution" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label for="format">Format</label>
+        <InputText id="format" @bind-Value="createExemplaire.Format" class="form-control"/>
+    </div>
+
+    <div class="text-right">
+        <button type="submit" class="btn btn-primary">Valider</button>
+    </div>
+    <ValidationSummary />
+</EditForm>

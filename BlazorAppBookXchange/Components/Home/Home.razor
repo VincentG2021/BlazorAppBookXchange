@@ -1,0 +1,33 @@
+﻿@using BlazorAppBookXchange.Models
+
+<div style="text-align:center">
+    <h1 style="color: @Color">
+        <span>
+            <img src="images/logo_bookXchange_left.gif" class="img-fluid rounded-start" style="max-width: 100px"/>
+        </span>
+        @Title
+        <span>
+            <img src="images/logo_bookXchange_right.gif" class="img-fluid rounded-start" style="max-width: 100px"/>
+        </span>
+    </h1>
+       
+    <div>
+        @Greetings
+    </div>
+</div>
+
+<div style="text-align:center">
+    <img @attributes="AdditionalAttributes" class="img-fluid rounded-start" />
+</div>
+
+<div style="text-align:center">
+        @Thanks
+</div>
+
+@code {
+    [Parameter] public string Title { get; set; }
+    [CascadingParameter] public string Color { get; set; }
+    [Parameter] public RenderFragment Greetings { get; set; }
+    [Parameter] public RenderFragment Thanks { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
+}

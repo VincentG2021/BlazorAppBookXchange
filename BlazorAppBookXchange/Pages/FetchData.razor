@@ -1,4 +1,6 @@
 ﻿@page "/fetchdata"
+@using BlazorAppBookXchange.Components.Modals
+@using BlazorAppBookXchange.Models
 @inject HttpClient Http
 
 <PageTitle>Weather forecast</PageTitle>
@@ -25,15 +27,29 @@ else
         <tbody>
             @foreach (var forecast in forecasts)
             {
-                <tr>
+                <tr @onclick="() => forecast.IsRowExpanded = !forecast.IsRowExpanded">
+
                     <td>@forecast.Date.ToShortDateString()</td>
                     <td>@forecast.TemperatureC</td>
                     <td>@forecast.TemperatureF</td>
                     <td>@forecast.Summary</td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm" @onclick="() => OpenDeleteDialog(forecast)">Delete</button>
+                    </td>
                 </tr>
+                @if (forecast.IsRowExpanded)
+                {
+                    <tr>@forecast.ExpandableContent</tr>
+                }
             }
         </tbody>
     </table>
+}
+
+@if (DeleteDialogOpen)
+{
+    // we call the ModalDialog, passing the Parameter of OnClose delegate. This points to the OnDeleteDialogClose private method
+    <ModalDialog DialogType="ModalDialog.ModalDialogType.DeleteCancel" Title="Are you sure?" Text="Do you want to delete this entry?" OnClose="@OnDeleteDialogClose"></ModalDialog>
 }
 
 @code {
@@ -41,7 +57,8 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+        await LoadData();
+
     }
 
     public class WeatherForecast
@@ -53,5 +70,44 @@ else
         public string? Summary { get; set; }
 
         public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+
+        //new fields added below
+        public bool IsRowExpanded { get; set; } = false;
+
+        public string ExpandableContent { get; set; } = "Lorem Ipsum";
     }
+
+
+
+    public bool DeleteDialogOpen { get; set; } // This property determines if the ModalDialog will be shown
+    private WeatherForecast _bookToDelete = null;
+
+    private async Task LoadData()
+    {
+        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+        StateHasChanged();
+    }
+
+
+
+    private void OpenDeleteDialog(WeatherForecast forecast)
+    {
+        _bookToDelete = forecast;
+        DeleteDialogOpen = true;
+    }
+
+    private async Task OnDeleteDialogClose(bool accepted)
+    {
+        if (accepted)
+        {
+            Console.WriteLine("OKAYYYYYYY");
+            //await Http.DeleteAsync($"api/Earnings/{_bookToDelete.IdLivre}");
+            await LoadData();
+            _bookToDelete = null;
+        }
+
+        DeleteDialogOpen = false;
+        StateHasChanged();
+    }
+
 }

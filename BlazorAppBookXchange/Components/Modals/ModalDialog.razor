@@ -1,0 +1,72 @@
+﻿<div class="modal fade show" id="myModal" style="display: block; background-color: rgba(10, 10, 10, .8);" aria-modal="true" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">@Title</h4>
+                <button type="button" class="close btn-warning" @onclick="@ModalCancel">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>@Text</p>
+            </div>
+            <div class="modal-footer">
+                @switch (@DialogType)
+                {
+                    case ModalDialogType.Ok:
+                        <button type="button" class="btn btn-primary" @onclick="@ModalOk">OK</button>
+                        break;
+                    case ModalDialogType.OkCancel:
+                        <button type="button" class="btn btn-primary" @onclick="@ModalOk">OK</button>
+                        <button type="button" class="btn btn-secondary" @onclick="@ModalCancel">Annuler</button>
+                        break;
+                    case ModalDialogType.DeleteCancel:
+                        <button type="button" class="btn btn-danger" @onclick="@ModalOk">Supprimer</button>
+                        <button type="button" class="btn btn-secondary" @onclick="@ModalCancel">Annuler</button>
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+@code
+{
+    // Remember, by using [Parameter] attribute, the property is accessible from other components,
+    // and can be passed in when calling the component
+
+    [Parameter]
+    public ModalDialogType DialogType { get; set; }
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public string Text { get; set; }
+
+    // This is the delegate to the method that will be executed when the dialog will be closed.
+    [Parameter]
+    public EventCallback<bool> OnClose { get; set; }
+
+
+    private Task ModalCancel()
+    {
+        // Here we invoke the whatever delegate was assigned to the OnClose Parameter, passing false (Cancel clicked)
+        return OnClose.InvokeAsync(false);
+    }
+
+    private Task ModalOk()
+    {
+        // Here we invoke the whatever delegate was assigned to the OnClose Parameter, passing true (Ok clicked)
+        return OnClose.InvokeAsync(true);
+    }
+
+
+    public enum ModalDialogType
+    {
+        Ok,
+        OkCancel,
+        DeleteCancel
+    }
+}

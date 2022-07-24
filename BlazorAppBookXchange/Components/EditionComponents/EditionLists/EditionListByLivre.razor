@@ -1,0 +1,60 @@
+﻿@page "/editionlist"
+@using BlazorAppBookXchange.Components.ExemplaireComponents.ExemplaireLists
+@using BlazorAppBookXchange.Components.ToolTip
+@using BlazorAppBookXchange.Models
+
+@if(IdSelectedBook != 0)
+{
+    <h3 style="color: #0505b5; text-align: center">Editions de: "@TitreSelectedBook"</h3>
+}
+@*    <p>IdSelectedBook : @IdSelectedBook</p>
+    <p>Livre sélectionné : @TitreSelectedBook</p>
+    <button class="btn btn-primary" @onclick="ShowEditionsByBook">Livre sélectionné : @TitreSelectedBook <br />Lancer la recherche</button>
+*@
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Ref. Edition</th>
+                <th>ISBN</th>
+                <th>Parution</th>
+                <th>Format</th>            
+@*                @if(_accountManager.IsTokenPresent)
+                {
+                    <th>Actions</th>           
+                }*@
+            </tr>
+        </thead>
+        <tbody>
+            @if (editionsByLivre == null)
+            {
+            <p><em>Loading...</em></p>
+            }
+            else
+            {
+                @foreach (var edition in editionsByLivre)
+                {
+                    <tr>
+                        <td>@edition.IdEdition</td>
+                        <td>@edition.Isbn</td>
+                        <td>@edition.Parution</td>
+                        <td>@edition.Format</td>
+                         
+                        <td @onclick='() => SetSelected(edition)' style="cursor:pointer;">Voir exemplaires
+                            <ToolTip Text="Voir les exemplaires de cette édition">
+                                <i class="bi bi-book" @onclick='() => ShowExemplairesByEdition(edition)' style="cursor:pointer;"></i>
+                            </ToolTip>
+
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+
+    @if(IdSelectedEdition !=0)
+    {
+        <ExemplaireListByLivre Text="@IdSelectedEdition.ToString()" IdSelectedEdition="@IdSelectedEdition"></ExemplaireListByLivre>
+    }
+

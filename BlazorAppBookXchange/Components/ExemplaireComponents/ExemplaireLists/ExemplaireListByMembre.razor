@@ -1,0 +1,82 @@
+﻿@page "/exemplairelistbymembre"
+
+@*@page "/exemplairelist/{IdMembre}"*@
+
+@using BlazorAppBookXchange.Components.Modals
+@using BlazorAppBookXchange.Models
+@using BlazorAppBookXchange.Components.ExemplaireComponents.ExemplaireLists
+@using BlazorAppBookXchange.Components.CollapsibleWrappers
+
+<PageTitle>Vos exemplaires</PageTitle>
+
+<h1>Vos exemplaires et éditions de livres</h1>
+
+<button type="button" class="btn btn-success" @onclick="GoToCreateExemplaire"><i class="bi bi-cloud-plus"></i> Ajouter un exemplaire</button>
+
+
+@if (exemplaireList == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Id Exemplaire</th>
+                <th scope="col">Image</th>
+                <th scope="col">Titre</th>
+                <th scope="col">Auteur</th>
+                <th scope="col">Synopsis</th>
+                <th scope="col">Details</th>
+                <th scope="col">Modifier</th>
+                <th scope="col">Supprimer</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var exemplaire in exemplaireList)
+            {
+                    <tr>
+                        <td class="align-middle">@exemplaire.IdExemplaire</td>
+                        <td class="align-middle">
+                            <img src="#" alt="couverture" style="width:100px;" />
+                        </td>
+                        <td class="align-middle">@exemplaire.Titre</td>
+                        <td class="align-middle">@exemplaire.Auteur</td>
+                        <td class="align-middle">@exemplaire.Synopsis</td>
+                        <td class="align-middle" @onclick="() => SetSelected(exemplaire)" style="cursor:pointer;"><i class="bi bi-info-circle"></i> @exemplaire.IdLivre</td>
+                        <td class="align-middle">
+                            <button type="button" class="btn btn-info" @onclick="GoToExemplaireEdit"><i class="bi bi-pencil-fill"></i> Modifier</button>
+                        </td>
+                        <td class="align-middle">
+                            <button type="button" class="btn btn-danger" @onclick="() => OpenDeleteDialog(exemplaire)"><i class="bi bi-trash"></i> Supprimer</button>
+                        </td>
+                    </tr>
+                    @if(exemplaire.IsRowExpanded)
+                    {
+                        <tr class="table-primary">
+                            <th scope="col">Id Edition</th>
+                            <th scope="col" colspan="3">Isbn</th>
+                            <th scope="col" colspan="2">Parution</th>
+                            <th scope="col">Format</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                        <tr style="border-bottom: 2px solid black;">
+                                <td class="align-middle span-2">@exemplaire.IdEdition</td>
+                                <td class="align-middle" colspan="3">@exemplaire.Isbn</td>
+                                <td class="align-middle" colspan="2">@exemplaire.Parution</td>
+                                <td class="align-middle">@exemplaire.Format</td>
+                                <td class="align-middle">Disponible</td>
+                        </tr>
+                    }
+            }
+        </tbody>
+    </table>
+}
+
+@if (DeleteDialogOpen)
+{
+    // we call the ModalDialog, passing the Parameter of OnClose delegate. This points to the OnDeleteDialogClose private method
+    <ModalDialog DialogType="ModalDialog.ModalDialogType.DeleteCancel" Title="Valider ou annuler" Text="Confirmez-vous la suppression de cet élément ?" OnClose="@OnDeleteDialogClose"></ModalDialog>
+}

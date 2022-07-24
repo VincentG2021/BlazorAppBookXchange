@@ -1,44 +1,62 @@
 ﻿@page "/"
-@using BlazorAppBookXchange.Pages.ExemplaireCard
-@using BlazorAppBookXchange.Components.DetailsComponents
+@inject AccountManager accountManager
+
+@using BlazorAppBookXchange.Models
+@using BlazorAppBookXchange.Components.Home
 
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Accueil</PageTitle>
 
-@*<img src="../images/logo-bookXchange.jpg" title="BookXchange logo" alt="BookXchange logo" style="max-width:200px"/>
-*@
+<Home Title="BookXchange vous souhaite la bienvenue." @attributes="AdditionalAttributes">
 
-@*<ExemplaireCard Text="Hello you"></ExemplaireCard>
-*@
+    <Greetings>     
+        @if(accountManager.IsTokenPresent == false)
+        {
+            <h4>Envie d'échanger des ouvrages avec d'autres membres ? <a href="/register" alt="lien vers inscription">Inscrivez-vous gratuitement.</a></h4>
+            <br />
+            <h4>Déjà membre ? <a href="/login" alt="lien vers identification">Identifiez-vous et bon surf !</a></h4>
+        }
+        else
+        {
+            <h4>Vous êtes identifié, vous pouvez naviguez vers <a href="/memberprofile"> votre espace personnel.</a></h4>
 
-@*<SurveyPrompt Title="How is Blazor working for you?" />
-*@
-
-
-<h2>For DEV</h2>
-<ul>
-    <li><a href="./editLivre">UpdateLive</a></li>
-    <li><a href="./deleteLivre">DeleteLive</a></li>
-</ul>
-
-
-<DetailsLivre Title="BookXchange vous souhaite la bienvenue." @attributes="AdditionalAttributes">
-    <VisitContent>
-        Thanks for visiting and sharing.
-
-    </VisitContent>
-
-    <Greetings>
-        Hi !
-
+        }
     </Greetings>
         
-</DetailsLivre>
+    <Thanks>
+        <h3>Merci pour votre visite !</h3>
+    </Thanks>
+</Home>
 
 @code{
     public Dictionary<string, object> AdditionalAttributes { get; set; } = new Dictionary<string, object>
     {
-        { "src", "/images/logo-bookXchange.jpg" },
-        { "alt", "products image for the Home component" }
+        { "src", "/images/bookshare_1280x800.jpg" },
+        { "alt", "image d'arrière plan page d'accueil BookXchange" },
+        { "style", "opacity: 0.80; margin-bottom: 5px"}
     };
+
+    protected override async Task OnInitializedAsync()
+    {
+        await accountManager.checkIfTokenStored();
+
+        accountManager.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        accountManager.OnChange -= StateHasChanged;
+    }
+
+
+
+
+    //public void GoToRegister()
+    //{
+    //    navigationManager.NavigateTo("/register");
+    //}
+    //public void GoToLogin()
+    //{
+    //    navigationManager.NavigateTo("/login");
+    //}
 }

@@ -2,7 +2,8 @@
 
 <h3>Ajoutez un ouvrage dans la liste commune de BookXchange</h3>
 
-<EditForm Model="addLivre" OnValidSubmit="SubmitEditLivreForm">
+
+<EditForm Model="addLivre" OnValidSubmit="SubmitAddLivreForm">
     <DataAnnotationsValidator />
     <p>
         Titre : <InputText @bind-Value=addLivre.Titre/>
