@@ -1,11 +1,4 @@
-﻿<h3>ExemplaireCard</h3>
-        
-@*        <p>IdSelectedBook : @IdSelectedBook</p>
-        <p>Livre sélectionné : @TitreSelectedBook</p>
-*@
-
-@*        <button class="btn btn-primary" @onclick="ShowEditionsByBook">Livre sélectionné : @TitreSelectedBook <br /> Cliquez ici pour lancer la recherche</button>
-*@
+﻿<h3 style="color: #0505b5; text-align: center">Exemplaires de: "@TitreSelectedBook"</h3>
 
     <table class="table table-striped">
         <thead>
@@ -20,21 +13,20 @@
                 <th>Format</th>
                 <th>Id Edition</th>
 *@                
-                @if(accountManager.IsTokenPresent)
+                @if(_accountManager.IsTokenPresent)
                 {
-                    <th>Actions</th>
-                    
+                    <th>Actions</th>   
                 }
             </tr>
         </thead>
         <tbody>
-            @if (exemplairesByEdition == null)
+            @if (exemplairesByLivre == null)
             {
             <p><em>Loading...</em></p>
             }
             else
             {
-                @foreach (var exemplaire in exemplairesByEdition)
+                @foreach (var exemplaire in exemplairesByLivre)
                 {
                     <tr>
                         <td>@exemplaire.IdExemplaire</td>
@@ -56,3 +48,6 @@
 
 
 
+@code {
+
+}

@@ -7,9 +7,7 @@ namespace BlazorAppBookXchange.Pages.ExemplaireCard
     public partial class ExemplaireCard
     {
         [Inject] private NavigationManager navigationManager { get; set; }
-
         [Inject] private ApiRequester _requester { get; set; }
-
         [Inject] private AccountManager accountManager { get; set; }
 
         public List<ExemplaireModel> exemplairesList = new List<ExemplaireModel>();

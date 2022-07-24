@@ -7,5 +7,7 @@
         public DateTime Parution { get; set; }
         public string Format { get; set; }
         public int IdLivre { get; set; }
+        public bool IsRowExpanded { get; set; } = false;
+
     }
 }

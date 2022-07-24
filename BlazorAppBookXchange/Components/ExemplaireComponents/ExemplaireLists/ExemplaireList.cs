@@ -2,7 +2,7 @@
 using BlazorAppBookXchange.Tools;
 using Microsoft.AspNetCore.Components;
 
-namespace BlazorAppBookXchange.Components.ExemplaireComponents
+namespace BlazorAppBookXchange.Components.ExemplaireComponents.ExemplaireLists
 {
     public partial class ExemplaireList
     {

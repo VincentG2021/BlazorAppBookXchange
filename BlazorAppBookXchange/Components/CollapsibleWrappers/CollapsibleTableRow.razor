@@ -1,0 +1,18 @@
+﻿<tr @onclick=Toggle>
+   @if(_show)
+   {
+       @ChildContent
+   }
+</tr>
+
+
+@code 
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    private bool _show { get; set; } = false;
+    
+    private void Toggle()
+    {
+        _show = !_show;
+    }
+}

@@ -1,23 +1,25 @@
 ﻿using BlazorAppBookXchange.Models;
 using BlazorAppBookXchange.Tools;
 using Microsoft.AspNetCore.Components;
-using System.Net.Http.Json;
 
-namespace BlazorAppBookXchange.Pages.CrudLivre
+namespace BlazorAppBookXchange.Pages.CrudExemplaire
 {
-    public partial class AddLivre : ComponentBase
+    public partial class CreateExemplaire
     {
         //[Inject] HttpClient Http { get; set; }
         [Inject] private ApiRequester _requester { get; set; }
         [Inject] private AccountManager _accountManager { get; set; }
         [Inject] private NavigationManager _navigationManager { get; set; }
 
-        public AddLivreModel addLivre { get; set; }
+        public CreateExemplaireModel createExemplaire { get; set; }
         public string Token { get; set; }
 
-        public AddLivre()
+        public string defaultValue = "2021-12-15T21:00";
+
+        public CreateExemplaire()
         {
-            addLivre = new AddLivreModel();
+            createExemplaire = new CreateExemplaireModel();
+
         }
 
         protected override async Task OnInitializedAsync()
@@ -30,24 +32,27 @@ namespace BlazorAppBookXchange.Pages.CrudLivre
             }
         }
 
-        public async Task SubmitAddLivreForm()
+        public async Task SubmitCreateExemplaireForm()
         {
             string Token = await _accountManager.GetToken("token");
+            int IdMembre = await _accountManager.GetMemberId("idMembre");
 
-            LivreModel lm = await _requester.Post<AddLivreModel, LivreModel>("Livre/CreateLivre", addLivre, Token);
+            createExemplaire.IdMembre = IdMembre;
 
-            if (lm != null)
+            int responseIdExemplaire = await _requester.Post<CreateExemplaireModel, int>("Exemplaire/CreateExemplaire", createExemplaire, Token);
+
+            if (responseIdExemplaire <0)
             {
                 if (Token is null)
                 {
                     _navigationManager.NavigateTo("/login");
                     return;
                 }
-                _navigationManager.NavigateTo("/booklist");
+                _navigationManager.NavigateTo("/createExemplaire");
             }
             else
             {
-                _navigationManager.NavigateTo("/");
+                _navigationManager.NavigateTo("/exemplairelist");
             }
 
 
