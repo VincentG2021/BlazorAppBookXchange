@@ -4,21 +4,15 @@ using Microsoft.AspNetCore.Components;
 
 namespace BlazorAppBookXchange.Pages.CrudExemplaire
 {
-    public partial class CreateExemplaire
+    public partial class EditExemplaire
     {
         [Inject] private ApiRequester _requester { get; set; }
         [Inject] private AccountManager _accountManager { get; set; }
         [Inject] private NavigationManager _navigationManager { get; set; }
-
-        public CreateExemplaireModel createExemplaire { get; set; }
+        [Parameter] public int idExemplaire { get; set; } 
+        public EditExemplaireModel editExemplaire { get; set; } = new EditExemplaireModel();
         public string Token { get; set; }
-
         public string defaultValue = "2021-12-15T21:00";
-
-        public CreateExemplaire()
-        {
-            createExemplaire = new CreateExemplaireModel();
-        }
 
         protected override async Task OnInitializedAsync()
         {
@@ -29,23 +23,34 @@ namespace BlazorAppBookXchange.Pages.CrudExemplaire
                 return;
             }
         }
+        protected override async Task OnParametersSetAsync()
+        {
+            await GetExemplaireById();
+        }
 
-        public async Task SubmitCreateExemplaireForm()
+        public async Task<EditExemplaireModel> GetExemplaireById()
+        {
+            await _accountManager.checkIfTokenStored();
+            string token = await _accountManager.GetToken("token");
+            editExemplaire = await _requester.Get<EditExemplaireModel>($"Exemplaire/GetExemplaireById/{idExemplaire}", token);
+            return editExemplaire;
+        }
+
+        public async Task SubmitEditExemplaireForm()
         {
             string Token = await _accountManager.GetToken("token");
             int IdMembre = await _accountManager.GetMemberId("idMembre");
+            editExemplaire.IdMembre = IdMembre;
+            bool responseUpdated = await _requester.Put<EditExemplaireModel, bool>("Exemplaire/UpdateExemplaire", editExemplaire, Token);
 
-            createExemplaire.IdMembre = IdMembre;
-            int responseIdExemplaire = await _requester.Post<CreateExemplaireModel, int>("Exemplaire/CreateExemplaire", createExemplaire, Token);
-
-            if (responseIdExemplaire <0)
+            if (!responseUpdated)
             {
                 if (Token is null)
                 {
                     _navigationManager.NavigateTo("/login");
                     return;
                 }
-                _navigationManager.NavigateTo("/createExemplaire");
+                _navigationManager.NavigateTo("/editExemplaire");
             }
             else
             {

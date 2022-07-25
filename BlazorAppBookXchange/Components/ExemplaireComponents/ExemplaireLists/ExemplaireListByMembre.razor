@@ -47,7 +47,7 @@ else
                         <td class="align-middle">@exemplaire.Synopsis</td>
                         <td class="align-middle" @onclick="() => SetSelected(exemplaire)" style="cursor:pointer;"><i class="bi bi-info-circle"></i> @exemplaire.IdLivre</td>
                         <td class="align-middle">
-                            <button type="button" class="btn btn-info" @onclick="GoToExemplaireEdit"><i class="bi bi-pencil-fill"></i> Modifier</button>
+                            <button type="button" class="btn btn-info" @onclick="() => SetSelectedExemplaireToEdit(exemplaire)"><i class="bi bi-pencil-fill"></i> Modifier</button>
                         </td>
                         <td class="align-middle">
                             <button type="button" class="btn btn-danger" @onclick="() => OpenDeleteDialog(exemplaire)"><i class="bi bi-trash"></i> Supprimer</button>

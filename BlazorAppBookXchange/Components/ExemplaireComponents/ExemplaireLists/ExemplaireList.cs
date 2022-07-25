@@ -21,17 +21,17 @@ namespace BlazorAppBookXchange.Components.ExemplaireComponents.ExemplaireLists
 
         protected override async Task OnInitializedAsync()
         {
-            // GetExemplaireList AVEC [Autorize("isConnected")] dans Exemplaire.API:
+            //GetExemplaireList AVEC[Autorize("isConnected")] dans Exemplaire.API:
 
-            //bool isTokenPresent = await accountManager.checkIfTokenStored();
-            //if (!accountManager.IsConnected && !isTokenPresent)
-            //{
-            //    navigationManager.NavigateTo("/login");
-            //    return;
-            //}
-            //string Token = await accountManager.GetToken("token");
+            bool isTokenPresent = await accountManager.checkIfTokenStored();
+            if (!accountManager.IsConnected && !isTokenPresent)
+            {
+                navigationManager.NavigateTo("/login");
+                return;
+            }
+            string Token = await accountManager.GetToken("token");
             ////exemplairesList = await Http.GetFromJsonAsync<List<ExemplaireModel>>("Exemplaire/GetExemplaireList");
-            //exemplairesList = await _requester.Get<List<ExemplaireModel>>("Exemplaire/GetExemplaireList", Token);
+            exemplairesList = await _requester.Get<List<ExemplaireModel>>("Exemplaire/GetExemplaireList", Token);
 
             await accountManager.checkIfTokenStored();
             accountManager.OnChange += StateHasChanged;
@@ -42,7 +42,7 @@ namespace BlazorAppBookXchange.Components.ExemplaireComponents.ExemplaireLists
 
             if (ShowExemplaires)
             {
-                exemplairesByBookList = await _requester.Get<List<ExemplaireModel>>($"Exemplaire/GetExemplaireByLivre/{IdSelectedBook}");
+                exemplairesByBookList = await _requester.Get<List<ExemplaireModel>>($"Exemplaire/GetExemplaireListByLivre/{IdSelectedBook}");
             }
 
         }

@@ -1,34 +1,34 @@
-﻿@page "/createExemplaire"
+﻿@page "/editExemplaire/{idExemplaire:int}"
 
-<h3>Insérez un exemplaire d'ouvrage dans BookXchange</h3>
+<h3>Modifiez cet exemplaire</h3>
 
-<EditForm Model="createExemplaire" OnValidSubmit="SubmitCreateExemplaireForm">
+<EditForm Model="editExemplaire" OnValidSubmit="SubmitEditExemplaireForm">
     <DataAnnotationsValidator />
 @*    <InputNumber hidden="hidden" @bind-Value="createExemplaire.IdMembre"></InputNumber>
 *@
     <div class="form-group">
         <label for="titre">Titre</label>
-        <InputText id="titre" @bind-Value="createExemplaire.Titre" class="form-control"/>
+        <InputText id="titre" @bind-Value="editExemplaire.Titre" class="form-control"/>
     </div>
     <div class="form-group">
         <label for="auteur">Auteur</label>
-        <InputText id="auteur" @bind-Value="createExemplaire.Auteur" class="form-control"/>
+        <InputText id="auteur" @bind-Value="editExemplaire.Auteur" class="form-control"/>
     </div>
     <div class="form-group">
         <label for="synopsis">Synopsis</label>
-        <InputTextArea id="synopsis" @bind-Value="createExemplaire.Synopsis" class="form-control" rows="10"/>
+        <InputTextArea id="synopsis" @bind-Value="editExemplaire.Synopsis" class="form-control" rows="10"/>
     </div>
     <div class="form-group">
         <label for="isbn">ISBN</label>
-        <InputText id="isbn" @bind-Value="createExemplaire.Isbn" class="form-control"/>
+        <InputText id="isbn" @bind-Value="editExemplaire.Isbn" class="form-control"/>
     </div>
     <div class="form-group">
         <label for="parution">Parution</label>
-        <InputDate id="parution" @bind-Value="createExemplaire.Parution" class="form-control"/>
+        <InputDate id="parution" @bind-Value="editExemplaire.Parution" class="form-control"/>
     </div>
     <div class="form-group">
         <label for="format">Format</label>
-        <InputText id="format" @bind-Value="createExemplaire.Format" class="form-control"/>
+        <InputText id="format" @bind-Value="editExemplaire.Format" class="form-control"/>
     </div>
 
     <div class="text-right">

@@ -39,7 +39,7 @@ namespace BlazorAppBookXchange.Pages.ExemplaireCard
 
             if (IdSelectedEdition != 0)
             {
-                exemplairesByEdition = await _requester.Get<List<ExemplaireModel>>($"Exemplaire/GetExemplairebyEdition/{IdSelectedEdition}");
+                exemplairesByEdition = await _requester.Get<List<ExemplaireModel>>($"Exemplaire/GetExemplaireListbyEdition/{IdSelectedEdition}");
             }
 
             await accountManager.checkIfTokenStored();

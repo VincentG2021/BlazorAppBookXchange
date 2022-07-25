@@ -15,6 +15,7 @@ namespace BlazorAppBookXchange.Components.ExemplaireComponents.ExemplaireLists
 
         public List<ExemplaireModel> exemplaireList = new List<ExemplaireModel>();
         public ExemplaireModel? Selected { get; set; }
+        public ExemplaireModel? SelectedExemplaireToEdit { get; set; }
 
         private ExemplaireModel _itemToDelete = new ExemplaireModel();
         public bool DeleteDialogOpen { get; set; } // Cette propriété détermine si ModalDialog doit s'acfficher
@@ -60,16 +61,23 @@ namespace BlazorAppBookXchange.Components.ExemplaireComponents.ExemplaireLists
             Selected = exemplaire;
             exemplaire.IsRowExpanded = !exemplaire.IsRowExpanded;
         }
-
+        
         public void GoToCreateExemplaire()
         {
             _navigationManager.NavigateTo("/createExemplaire");
         }
 
-        public void GoToExemplaireEdit()
+        public void SetSelectedExemplaireToEdit(ExemplaireModel exemplaire)
         {
-            _navigationManager.NavigateTo("/editlivre");
+            SelectedExemplaireToEdit = exemplaire;
+            _navigationManager.NavigateTo($"/editExemplaire/{SelectedExemplaireToEdit.IdExemplaire}");
+
         }
+
+        //public void GoToExemplaireEdit(int id)
+        //{
+        //    //_navigationManager.NavigateTo("/editlivre");
+        //}
 
         private void OpenDeleteDialog(ExemplaireModel exemplaire)
         {

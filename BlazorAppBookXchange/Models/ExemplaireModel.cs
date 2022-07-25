@@ -47,8 +47,9 @@ namespace BlazorAppBookXchange.Models
     }
 
 
-    public class EditExemplaireLivreModel : EditionModel
+    public class EditExemplaireModel : EditionModel
     {
+        public int IdMembre { get; set; }
         public int IdExemplaire { get; set; }
 
         [DisplayName("Titre de l'ouvrage")]
