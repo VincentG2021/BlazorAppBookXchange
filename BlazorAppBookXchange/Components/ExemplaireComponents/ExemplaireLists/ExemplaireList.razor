@@ -23,19 +23,60 @@
                 <th scope="col">Id Exemplaire</th>
                 <th scope="col">Id Livre</th>
                 <th scope="col">Titre</th>
+                <th scope="col">Auteur</th>
+                <th scope="col">Synopsis</th>
+                <th scope="col">Id Edition</th>
+                <th scope="col">ISBN</th>
+                <th scope="col">Parution</th>              
                 <th scope="col">Format</th>
                 <th scope="col">Id Membre</th>
-                <th scope="col">Update</th>
-                <th scope="col">Delete</th>
                 
                 @if(accountManager.IsTokenPresent)
                 {
-                    <th>Actions</th>
-                    
+                    <th>Actions</th> 
+                    <th scope="col">Update</th>
+                    <th scope="col">Delete</th>                  
                 }
             </tr>
         </thead>
         <tbody>
+            @if (exemplairesList == null)
+            {
+            <p><em>Loading...</em></p>
+            }
+            else
+            {
+                @foreach (var exemplaire in exemplairesList)
+                {
+                    <tr>
+                        <td class="align-middle">@exemplaire.IdExemplaire</td>
+                        <td class="align-middle">@exemplaire.IdLivre</td>
+                        <td class="align-middle">@exemplaire.Titre</td>
+                        <td class="align-middle">@exemplaire.Auteur</td>
+                        <td class="align-middle">@exemplaire.Synopsis</td>
+                        <td class="align-middle">@exemplaire.IdEdition</td>
+                        <td class="align-middle">@exemplaire.Isbn</td>
+                        <td class="align-middle">@exemplaire.Parution</td>
+                        <td class="align-middle">@exemplaire.Format</td>
+                        <td class="align-middle">@exemplaire.IdMembre</td>
+                    @if (accountManager.IsTokenPresent)
+                    {
+                        <td class="align-middle">
+                            <button type="button" class="btn btn-info">Update</button>
+                        </td>
+                        <td class="align-middle">
+                            <button type="button" class="btn btn-danger">Delete</button>
+                        </td>
+                        @* <td @onclick='() => SetSelected(exemplaire.IdEdition)' style="cursor:pointer;">Voir exemplaires</td>
+*@
+                    }
+                </tr>
+                }
+            }
+
+
+
+
             @if (exemplairesByBookList == null)
             {
             <p><em>Loading...</em></p>

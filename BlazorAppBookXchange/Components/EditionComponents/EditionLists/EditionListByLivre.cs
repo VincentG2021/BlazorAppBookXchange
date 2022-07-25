@@ -105,7 +105,7 @@ namespace BlazorAppBookXchange.Components.EditionComponents.EditionLists
         public async Task<List<ExemplaireModel>> ShowExemplairesByEdition(EditionModel edition)
         {
             string token = await _accountManager.GetToken("token");
-            exemplairesByEdition = await _requester.Get<List<ExemplaireModel>>($"Exemplaire/GetExemplaireByLivre/{IdSelectedEdition}", token);
+            exemplairesByEdition = await _requester.Get<List<ExemplaireModel>>($"Exemplaire/GetExemplaireListByLivre/{IdSelectedEdition}", token);
             return exemplairesByEdition;
         }
 

@@ -4,7 +4,7 @@
 
 <EditForm Model="editLivre" OnValidSubmit="SubmitEditLivreForm">
     <DataAnnotationsValidator />
-    <InputNumber @bind-Value=editLivre.IdLivre></InputNumber>
+    <InputNumber hidden="hidden" @bind-Value=editLivre.IdLivre></InputNumber>
     <p>
         Titre : <InputText @bind-Value=editLivre.Titre/>
     </p>

@@ -57,7 +57,7 @@ namespace BlazorAppBookXchange.Components.ExemplaireComponents.ExemplaireLists
         {
             await _accountManager.checkIfTokenStored();
             string Token = await _accountManager.GetToken("token");
-            exemplairesByLivre = await _requester.Get<List<ExemplaireModel>>($"Exemplaire/GetExemplaireByLivre/{IdSelectedBook}", Token);
+            exemplairesByLivre = await _requester.Get<List<ExemplaireModel>>($"Exemplaire/GetExemplaireListByLivre/{IdSelectedBook}", Token);
             return exemplairesByLivre;
         }
 
