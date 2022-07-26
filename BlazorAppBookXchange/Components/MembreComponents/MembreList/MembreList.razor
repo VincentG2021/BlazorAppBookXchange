@@ -1,10 +1,10 @@
-﻿@page "/memberlist"
+﻿@page "/membrelist"
 
 <PageTitle>Liste des membres</PageTitle>
 
 <h1>Liste des membres</h1>
 
-@if (memberList == null)
+@if (membresList == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -19,12 +19,12 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var member in memberList)
+            @foreach (var membre in membresList)
             {
                 <tr>
-                    <td>@member.Pseudo</td>
-                    <td>@member.Email</td>
-                    <td>@member.Role</td>
+                    <td>@membre.Pseudo</td>
+                    <td>@membre.Email</td>
+                    <td>@membre.Role</td>
                 </tr>
             }
         </tbody>

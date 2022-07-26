@@ -2,9 +2,9 @@
 using BlazorAppBookXchange.Tools;
 using Microsoft.AspNetCore.Components;
 
-namespace BlazorAppBookXchange.Pages.MemberCard
+namespace BlazorAppBookXchange.Components.MembreComponents.MembreCard
 {
-    public partial class MemberCard
+    public partial class MembreCard
     {
         [Inject] private AccountManager accountManager { get; set; }
         [Inject] private NavigationManager navigationManager { get; set; }

@@ -6,20 +6,12 @@ namespace BlazorAppBookXchange.Pages.Login
 {
     public partial class Login : ComponentBase
     {
-        //[Inject]
-        //HttpClient Http { get; set; }
-
         [Inject] private ApiRequester _requester { get; set; }
-        [Inject] private NavigationManager navigationManager { get; set; }
-        [Inject] private AccountManager accountManager { get; set; }
+        [Inject] private NavigationManager _navigationManager { get; set; }
+        [Inject] private AccountManager _accountManager { get; set; }
 
-        public LoginMembreModel membreLogin { get; set; }
+        public LoginMembreModel membreLogin { get; set; } = new LoginMembreModel();
         public string Token { get; set; }
-
-        public Login()
-        {
-            membreLogin = new LoginMembreModel();
-        }
 
         public async Task SubmitLoginForm()
         {
@@ -35,27 +27,27 @@ namespace BlazorAppBookXchange.Pages.Login
 
                 if (mm.Token is null)
                 {
-                    navigationManager.NavigateTo("/");
+                    _navigationManager.NavigateTo("/");
                     return;
                 }
 
-                await accountManager.SetToken("token", mm.Token);
-                await accountManager.SetIdMembre("idMembre", mm.IdMembre);
-                await accountManager.SetPseudo("pseudo", mm.Pseudo);
+                await _accountManager.SetToken("token", mm.Token);
+                await _accountManager.SetIdMembre("idMembre", mm.IdMembre);
+                await _accountManager.SetPseudo("pseudo", mm.Pseudo);
                 
-                await accountManager.checkIfTokenStored();
+                await _accountManager.checkIfTokenStored();
 
                 //SetToken() FONCTIONNEL (set bien le Token au Login, ok avant de mep AccountManager et LocalStorageService)
                 //SetToken(mm.Token);
                 //navigationManager.NavigateTo("/booklist");
 
                 int idConnectedMember = mm.IdMembre;
-                
-                navigationManager.NavigateTo($"/memberprofile/{idConnectedMember}");
+
+                _navigationManager.NavigateTo($"/profilmembre/{idConnectedMember}");
             }
             else
             {
-                navigationManager.NavigateTo("/login");
+                _navigationManager.NavigateTo("/login");
             }
 
 

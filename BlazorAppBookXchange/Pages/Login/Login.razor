@@ -2,33 +2,74 @@
 @inject ApiRequester Requester
 @inject AccountManager AccountManager
 
-<h3>Identifier-vous ici:</h3>
+<style>
+/*    main {
+                background-color: #756213;
+        background-image: linear-gradient(315deg, #756213 0%, #000000 74%);
+    }
+*/
+    .contour {
+        text-align:center;
+/*        background-color: #212529;
+*/
+    }
 
-<EditForm Model="membreLogin" OnValidSubmit="SubmitLoginForm">
-    <DataAnnotationsValidator />
-    <p>
-        Pseudo : <InputText @bind-Value=membreLogin.Pseudo/>
-    </p>
-@*    <p>
-        Email : <InputText @bind-Value=membreLogin.Email/>
-    </p>
-*@    <p>
-        Pwd : <InputText @bind-Value=membreLogin.Password type="password"/>
-    </p>
-    <button class="btn btn-success" type="submit">Valider</button>
-    <ValidationSummary />
-</EditForm>
+    .box {
+        align-items: center;
+        justify-content: center;
+        width: 50%;
+        min-height: 50%;
+        min-width:300px;
+        padding: 10px;
+/*        background-color: #ffb377;
+*/        
+        background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+        margin: auto;
+        border-radius: 2%;
+    }
 
-@*@if(AccountManager.IsConnected)
-{
-    <p>CONNECTION OK</p>
-}
-else
-{
-    <p>NOT CONNECTED</p>
+    .col-centered {
+        margin: 0 auto;
+        float: none;
+    }
 
-}*@
+    .spaced {
+        margin: 1em;
+    }
 
-@code {
+    .golden {
+        color: lightgoldenrodyellow;
+    }
 
-}
+</style>
+
+<div class="container-fluid">
+    <div class="contour">
+        <span>
+            <img src="images/logo_bookXchange_left.gif" class="img-fluid rounded-start" style="max-width: 100px"/>
+        </span>
+        <div class="box d-flex flex-column ">
+            <div>
+                <h4 class="spaced golden">Identifier-vous ci-dessous: </h4>
+            </div>
+            <EditForm Model="membreLogin" OnValidSubmit="SubmitLoginForm">
+                <DataAnnotationsValidator />
+                <div class="form-group">
+                    <label for="pseudo" class="golden">Pseudo</label>
+                    <InputText id="pseudo" @bind-Value=membreLogin.Pseudo class="form-control col-centered" style="max-width: 85%" placeholder="Entrez votre pseudo"/>
+                </div>
+                <br />
+                <div class="form-group">
+                    <label for="password" class="golden">Mot de passe</label>
+                    <InputText id="password" @bind-Value=membreLogin.Password type="password" class="form-control col-centered" style="max-width: 85%" placeholder="Entrez votre mot de passe"/>
+                </div>
+                <button class="btn btn-success spaced" type="submit" >Valider</button>
+                <ValidationSummary />
+            </EditForm>
+        </div>
+        <span>
+            <img src="images/logo_bookXchange_right.gif" class="img-fluid rounded-start" style="max-width: 100px"/>
+        </span>
+    </div>
+</div>
+

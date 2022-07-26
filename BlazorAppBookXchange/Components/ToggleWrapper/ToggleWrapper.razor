@@ -1,5 +1,5 @@
-﻿@using BlazorAppBookXchange.Components.LivreComponents
-@using BlazorAppBookXchange.Components.LivreComponents.BookCard
+﻿@using BlazorAppBookXchange.Components.ExemplaireComponents.ExemplaireLists
+@using BlazorAppBookXchange.Components.ExemplaireComponents.ExemplaireCard
 
 <span @onclick=ChangeView style="cursor:pointer;">
     <i class="bi bi-view-list">@ActionViewText</i>
@@ -8,13 +8,13 @@
 <div class="row">
     @if (!Liste)
     {
-        @*Affichage du composant BookCard*@
-        <BookCard></BookCard>
+        @*Affichage du composant ExemplaireCard*@
+        <ExemplaireCard></ExemplaireCard>
     }
     else
     {
         <div class="col-12 card card-body">
-            @*Affichage du composant BookList (voir page Livres)*@
+            @*Affichage du composant ExemplaireList (voir page Exemplaires)*@
             @ChildContent
         </div>
     }

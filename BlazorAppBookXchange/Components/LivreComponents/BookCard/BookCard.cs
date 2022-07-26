@@ -6,9 +6,9 @@ namespace BlazorAppBookXchange.Components.LivreComponents.BookCard
 {
     public partial class BookCard
     {
-        [Inject] private NavigationManager navigationManager { get; set; }
+        [Inject] private NavigationManager _navigationManager { get; set; }
         [Inject] private ApiRequester _requester { get; set; }
-        [Inject] private AccountManager accountManager { get; set; }
+        [Inject] private AccountManager _accountManager { get; set; }
 
         public List<LivreModel> bookList = new List<LivreModel>();
         public List<EditionModel> EditionsByBookList { get; set; }
@@ -16,48 +16,44 @@ namespace BlazorAppBookXchange.Components.LivreComponents.BookCard
         public string TitreSelectedBook { get; set; }
 
         public bool voirEditionsClicked;
-
         protected override async Task OnInitializedAsync()
         {
             //AVEC [Autorize("isConnected")] dans BookXchangeBE.API:
 
-            //bool isTokenPresent = await accountManager.checkIfTokenStored();
-            //if (!accountManager.IsConnected && !isTokenPresent)
+            //bool isTokenPresent = await _accountManager.checkIfTokenStored();
+            //if (!_accountManager.IsConnected && !isTokenPresent)
             //{
-            //    navigationManager.NavigateTo("/login");
+            //    _navigationManager.NavigateTo("/login");
             //    return;
             //}
-            //string Token = await accountManager.GetToken("token");
+            //string Token = await _accountManager.GetToken("token");
             ////bookList = await Http.GetFromJsonAsync<List<LivreModel>>("GetBookList");
             //bookList = await _requester.Get<List<LivreModel>>("GetBookList", Token);
 
 
             //SANS [Autorize("isConnected")], AVEC [AllowAnonymous] dans BookXchangeBE.API:
             //bookList = await _requester.Get<List<LivreModel>>("membre/GetBookList"); 
+
             bookList = await _requester.Get<List<LivreModel>>("livre/ReadLivreList");
 
-            await accountManager.checkIfTokenStored();
+            await _accountManager.checkIfTokenStored();
 
-            accountManager.OnChange += StateHasChanged;
+            _accountManager.OnChange += StateHasChanged;
         }
 
-        public void Dispose()
+
+        public void SetSelected(LivreModel book)
         {
-            accountManager.OnChange -= StateHasChanged;
+            IdSelectedBook = book.IdLivre;
+            TitreSelectedBook = book.Titre;
         }
 
-        public void SetSelected(int idBook, string nameBook)
-        {
-            IdSelectedBook = idBook;
-            TitreSelectedBook = nameBook;
-        }
-
-        public void voirEditions(int idBook, string nameBook)
-        {
-            IdSelectedBook = idBook;
-            TitreSelectedBook = nameBook;
-            voirEditionsClicked = true;
-        }
+        //public void VoirEditions(int idBook, string nameBook)
+        //{
+        //    IdSelectedBook = idBook;
+        //    TitreSelectedBook = nameBook;
+        //    voirEditionsClicked = true;
+        //}
 
         //public async Task<IEnumerable<EditionModel>> GetSelectedBookEditions(LivreModel book)
         //{
@@ -70,16 +66,18 @@ namespace BlazorAppBookXchange.Components.LivreComponents.BookCard
 
         //}
 
-
         public void GoToBookDetails(int id)
         {
-            navigationManager.NavigateTo("/");
+            _navigationManager.NavigateTo("/");
         }
 
         public void GoToBookEdit()
         {
-            navigationManager.NavigateTo("/counter");
+            _navigationManager.NavigateTo("/counter");
         }
-
+        public void Dispose()
+        {
+            _accountManager.OnChange -= StateHasChanged;
+        }
     }
 }
