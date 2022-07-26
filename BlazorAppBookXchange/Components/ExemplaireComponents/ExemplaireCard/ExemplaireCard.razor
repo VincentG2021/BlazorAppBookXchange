@@ -33,10 +33,10 @@ else
                                     <p class="card-text">@exemplaire.Auteur</p>
                                     <p class="card-text">@exemplaire.Synopsis</p>
                                     <p class="card-text"><small class="text-muted">Disponible</small></p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>                           
-                                      <boutton class="btn-sm btn-primary" @onclick="() => SetSelectedCard(exemplaire)" style="cursor:pointer;">
-                                          <i class="bi bi-eye-fill text-info"></i>Voir détails
-                                      </boutton>
+                                    <boutton class="btn-sm btn-primary" @onclick="() => SetSelectedCard(exemplaire)" style="cursor:pointer;">
+                                        <i class="bi bi-eye-fill text-info"></i> Voir détails
+                                    </boutton>
+                                    @*<a href="#" class="btn btn-primary">Go somewhere</a>  *@                         
                                 </div>
                             </div>
                         </div>
@@ -64,11 +64,15 @@ else
                                     <p class="card-text">@exemplaire.Format</p>
                                     <p class="card-text">@exemplaire.IdMembre</p>
     @*                                <p class="card-text"><small class="text-muted">Disponible</small></p>
-    *@                                <a href="#" class="btn btn-primary">Go somewhere</a>
+    *@                                
+                                <boutton class="btn-sm btn-primary" @onclick="() => SetSelectedCard(exemplaire)" style="cursor:pointer;">
+                                    <i class="bi bi-eye text-primary"></i> Voir Résumé
+                                </boutton>
+                                <boutton class="btn-sm btn-success" @onclick="() => AskXchange(exemplaire)" style="cursor:pointer;">
+                                    <i class="bi bi-eye-fill text-info"></i> Xchange
+                                </boutton>
+                                @*<a href="#" class="btn btn-primary">Go somewhere</a>*@
 
-                                  <boutton class="btn-sm btn-primary" @onclick="() => SetSelectedCard(exemplaire)" style="cursor:pointer;">
-                                      <i class="bi bi-eye text-primary"></i>Voir Résumé
-                                  </boutton>
                                 </div>
                             </div>
                         </div>

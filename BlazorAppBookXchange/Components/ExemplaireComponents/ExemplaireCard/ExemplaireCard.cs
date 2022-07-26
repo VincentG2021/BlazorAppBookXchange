@@ -1,5 +1,6 @@
 ﻿using BlazorAnimate;
 using BlazorAppBookXchange.Models;
+using BlazorAppBookXchange.Services;
 using BlazorAppBookXchange.Tools;
 using Microsoft.AspNetCore.Components;
 
@@ -7,9 +8,10 @@ namespace BlazorAppBookXchange.Components.ExemplaireComponents.ExemplaireCard
 {
     public partial class ExemplaireCard
     {
-        [Inject] private NavigationManager navigationManager { get; set; }
+        [Inject] private NavigationManager _navigationManager { get; set; }
         [Inject] private ApiRequester _requester { get; set; }
-        [Inject] private AccountManager accountManager { get; set; }
+        [Inject] private AccountManager _accountManager { get; set; }
+        [Inject] private XchangeService _xchangeService { get; set; }
 
         private Animate? animateFlip;
 
@@ -19,29 +21,23 @@ namespace BlazorAppBookXchange.Components.ExemplaireComponents.ExemplaireCard
         public int IdSelectedExemplaire { get; set; }
         public string TitreSelectedExemplaire { get; set; }
 
-        //public bool voirEditionsClicked;
+        public MembreModel MembreDetails { get; set; } = new MembreModel();
 
         protected override async Task OnInitializedAsync()
         {
             //cardFlipClass = "hideBackCard";
 
             exemplairesList = await _requester.Get<List<ExemplaireModel>>("Exemplaire/GetExemplaireList");
-            await accountManager.checkIfTokenStored();
-            accountManager.OnChange += StateHasChanged;
+            await _accountManager.checkIfTokenStored();
+            _accountManager.OnChange += StateHasChanged;
         }
 
-        public void SetSelected(int idExemplaire, string nameExemplaire)
-        {
-            IdSelectedExemplaire = idExemplaire;
-            TitreSelectedExemplaire = nameExemplaire;
-        }
+        //public void SetSelected(int idExemplaire, string nameExemplaire)
+        //{
+        //    IdSelectedExemplaire = idExemplaire;
+        //    TitreSelectedExemplaire = nameExemplaire;
+        //}
 
-        public void VoirEditions(int idBook, string nameBook)
-        {
-            IdSelectedExemplaire = idBook;
-            TitreSelectedExemplaire = nameBook;
-            //voirEditionsClicked = true;
-        }
 
         //public async Task<IEnumerable<EditionModel>> GetSelectedBookEditions(LivreModel book)
         //{
@@ -64,19 +60,38 @@ namespace BlazorAppBookXchange.Components.ExemplaireComponents.ExemplaireCard
             exemplaire.IsCardFlipped = !exemplaire.IsCardFlipped;
             AnimationFlip();
         }
+        public async Task<MembreModel> AskXchange(ExemplaireModel exemplaire)
+        {
+            Console.WriteLine(exemplaire.IdMembre);
+            IdSelectedExemplaire = exemplaire.IdExemplaire;
+            TitreSelectedExemplaire = exemplaire.Titre;
+            MembreDetails = await /*_xchangeService.*/GetMembreDetails(exemplaire.IdMembre);
+            Console.WriteLine(MembreDetails.Email);
+            return MembreDetails;
+        }
+
+        public async Task<MembreModel> GetMembreDetails(int id)
+        {
+            //await CheckIfTokenStored();
+            string Token = await _accountManager.GetToken("token");
+            int IdConnectedMembre = await _accountManager.GetMemberId("idMembre");
+            MembreDetails = await _requester.Get<MembreModel>($"Membre/GetMembreById/{id}", Token);
+            return MembreDetails;
+        }
+
 
         public void GoToBookDetails(int id)
         {
-            navigationManager.NavigateTo("/");
+            _navigationManager.NavigateTo("/");
         }
 
         public void GoToBookEdit()
         {
-            navigationManager.NavigateTo("/counter");
+            _navigationManager.NavigateTo("/counter");
         }
         public void Dispose()
         {
-            accountManager.OnChange -= StateHasChanged;
+            _accountManager.OnChange -= StateHasChanged;
         }
 
     }

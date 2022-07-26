@@ -11,7 +11,6 @@ namespace BlazorAppBookXchange.Pages.CrudExemplaire
         [Inject] private NavigationManager _navigationManager { get; set; }
 
         public CreateExemplaireModel createExemplaire { get; set; }
-        public string Token { get; set; }
 
         public string defaultValue = "2021-12-15T21:00";
 
