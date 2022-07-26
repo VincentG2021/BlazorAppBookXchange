@@ -1,4 +1,5 @@
 using BlazorAppBookXchange;
+using BlazorAppBookXchange.Services;
 using BlazorAppBookXchange.Tools;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -12,5 +13,6 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https:/
 builder.Services.AddScoped(sp => new ApiRequester("https://localhost:7144/BookXchangeAPI/"));
 builder.Services.AddScoped<ILocalStorageService, LocalStorageService>();
 builder.Services.AddScoped<AccountManager>();
+builder.Services.AddScoped<XchangeService>();
 
 await builder.Build().RunAsync();
