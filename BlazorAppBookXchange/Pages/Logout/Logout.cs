@@ -5,17 +5,14 @@ namespace BlazorAppBookXchange.Pages.Logout
 {
     public partial class Logout : ComponentBase
     {
-        [Inject] private NavigationManager navigationManager { get; set; }
-        [Inject] private AccountManager accountManager { get; set; }
+        [Inject] private NavigationManager _navigationManager { get; set; }
+        [Inject] private AccountManager _accountManager { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
-            await accountManager.RemoveToken("token");
-            await accountManager.RemoveMemberInfos();
-
-            navigationManager.NavigateTo("/");
-
+            await _accountManager.RemoveToken("token");
+            await _accountManager.RemoveMemberInfos();
+            _navigationManager.NavigateTo("/");
         }
-
     }
 }

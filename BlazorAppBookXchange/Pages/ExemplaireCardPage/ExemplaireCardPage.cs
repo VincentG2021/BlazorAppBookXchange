@@ -2,9 +2,9 @@
 using BlazorAppBookXchange.Tools;
 using Microsoft.AspNetCore.Components;
 
-namespace BlazorAppBookXchange.Pages.ExemplaireCard
+namespace BlazorAppBookXchange.Pages.ExemplaireCardPage
 {
-    public partial class ExemplaireCard
+    public partial class ExemplaireCardPage
     {
         [Inject] private NavigationManager navigationManager { get; set; }
         [Inject] private ApiRequester _requester { get; set; }
@@ -13,6 +13,8 @@ namespace BlazorAppBookXchange.Pages.ExemplaireCard
         public List<ExemplaireModel> exemplairesList = new List<ExemplaireModel>();
 
         public List<ExemplaireModel> exemplairesByEdition = new List<ExemplaireModel>();
+
+        public ExemplaireModel? SelectedCard { get; set; }
 
         [Parameter] public RenderFragment ChildContent { get; set; }
         [Parameter] public string Text { get; set; }
@@ -45,6 +47,12 @@ namespace BlazorAppBookXchange.Pages.ExemplaireCard
             await accountManager.checkIfTokenStored();
 
             accountManager.OnChange += StateHasChanged;
+        }
+
+        public void SetSelectedCard(ExemplaireModel exemplaire)
+        {
+            SelectedCard = exemplaire;
+            exemplaire.IsCardFlipped = !exemplaire.IsCardFlipped;
         }
 
 

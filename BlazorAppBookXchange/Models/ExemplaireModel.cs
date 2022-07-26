@@ -7,8 +7,10 @@ namespace BlazorAppBookXchange.Models
     {
         public int IdExemplaire { get; set; }
         public int IdMembre { get; set; }
-        public int IdEdition { get; set; }
-        public bool IsRowExpanded { get; set; } = false;
+        //public int IdEdition { get; set; }
+        //public bool IsRowExpanded { get; set; } = false;
+        public bool IsCardFlipped { get; set; } = false;
+
 
     }
 
@@ -16,29 +18,29 @@ namespace BlazorAppBookXchange.Models
     {
         public int IdMembre { get; set; }
 
-        [DisplayName("Titre de l'ouvrage")]
-        [Required]
-        public string Titre { get; set; }
+        //[DisplayName("Titre de l'ouvrage")]
+        //[Required]
+        //public string Titre { get; set; }
 
-        [DisplayName("Auteur l'ouvrage")]
-        [Required]
-        public string Auteur { get; set; }
+        //[DisplayName("Auteur l'ouvrage")]
+        //[Required]
+        //public string Auteur { get; set; }
 
-        [DisplayName("Résumé, synopsis")]
-        [Required]
-        public string Synopsis { get; set; }
+        //[DisplayName("Résumé, synopsis")]
+        //[Required]
+        //public string Synopsis { get; set; }
 
-        [DisplayName("Isbn")]
-        [Required]
-        public string Isbn { get; set; }
+        //[DisplayName("Isbn")]
+        //[Required]
+        //public string Isbn { get; set; }
 
-        [DisplayName("Date de parution")]
-        [Required]
-        public DateTime Parution { get; set; } = DateTime.UtcNow;
+        //[DisplayName("Date de parution")]
+        //[Required]
+        //public DateTime Parution { get; set; } = DateTime.UtcNow;
 
-        [DisplayName("Format")]
-        [Required]
-        public string Format { get; set; }
+        //[DisplayName("Format")]
+        //[Required]
+        //public string Format { get; set; }
 
         //[DisplayName("Disponibilité")]
         //[Required]
@@ -52,29 +54,29 @@ namespace BlazorAppBookXchange.Models
         public int IdMembre { get; set; }
         public int IdExemplaire { get; set; }
 
-        [DisplayName("Titre de l'ouvrage")]
-        [Required]
-        public string Titre { get; set; }
+        //[DisplayName("Titre de l'ouvrage")]
+        //[Required]
+        //public string Titre { get; set; }
 
-        [DisplayName("Auteur l'ouvrage")]
-        [Required]
-        public string Auteur { get; set; }
+        //[DisplayName("Auteur l'ouvrage")]
+        //[Required]
+        //public string Auteur { get; set; }
 
-        [DisplayName("Résumé, synopsis")]
-        [Required]
-        public string Synopsis { get; set; }
+        //[DisplayName("Résumé, synopsis")]
+        //[Required]
+        //public string Synopsis { get; set; }
 
-        [DisplayName("Isbn")]
-        [Required]
-        public string Isbn { get; set; }
+        //[DisplayName("Isbn")]
+        //[Required]
+        //public string Isbn { get; set; }
 
-        [DisplayName("Date de parution")]
-        [Required]
-        public DateTime Parution { get; set; }
+        //[DisplayName("Date de parution")]
+        //[Required]
+        //public DateTime Parution { get; set; }
 
-        [DisplayName("Format")]
-        [Required]
-        public string Format { get; set; }
+        //[DisplayName("Format")]
+        //[Required]
+        //public string Format { get; set; }
 
         //[DisplayName("Disponibilité")]
         //[Required]

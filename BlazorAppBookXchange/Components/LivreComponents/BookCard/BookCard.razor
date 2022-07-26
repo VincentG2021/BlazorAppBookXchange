@@ -12,7 +12,7 @@ else
         <div class="d-flex flex-column flex-lg-row gap-3">
         @foreach (var book in bookList)
         {
-
+            
                 <div class="card mb-6" style="min-width: 300px; max-width: 540px;">
                     <div class="row g-0">
                         <div class="col-md-4">
@@ -30,6 +30,7 @@ else
                                 <p class="card-text">@book.Synopsis</p>
                                 <p class="card-text"><small class="text-muted">Disponible</small></p>
                                 <a href="#" class="btn btn-primary">Go somewhere</a>
+                                <boutton class="btn-sm btn-primary" @onclick="() => SetSelected(book)">FLIP</boutton>
                             </div>
                         </div>
                     </div>
@@ -38,7 +39,7 @@ else
     </div>
 }
 
-@if (IdSelectedBook != 0)
+@*@if (IdSelectedBook != 0)
 {
     <EditionList IdSelectedBook="@IdSelectedBook" TitreSelectedBook="@TitreSelectedBook"></EditionList>
 }
@@ -46,3 +47,6 @@ else
 {
     <p>Aucun livre sélectionné</p>
 }
+*@
+
+@*<BlazorAppBookXchange.Components.ExemplaireComponents.ExemplaireLists.ExemplaireList></BlazorAppBookXchange.Components.ExemplaireComponents.ExemplaireLists.ExemplaireList>*@

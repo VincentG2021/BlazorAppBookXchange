@@ -1,34 +1,33 @@
 ﻿@page "/"
 @inject AccountManager accountManager
-
+@using BlazorAnimate
 @using BlazorAppBookXchange.Models
 @using BlazorAppBookXchange.Components.Home
 
-
 <PageTitle>Accueil</PageTitle>
-
-<Home Title="BookXchange vous souhaite la bienvenue." @attributes="AdditionalAttributes">
-
-    <Greetings>     
-        @if(accountManager.IsTokenPresent == false)
-        {
-            <h4>Envie d'échanger des ouvrages avec d'autres membres ? <a href="/register" alt="lien vers inscription">Inscrivez-vous gratuitement.</a></h4>
-            <br />
-            <h4>Déjà membre ? <a href="/login" alt="lien vers identification">Identifiez-vous et bon surf !</a></h4>
-        }
-        else
-        {
-            <h4>Vous êtes identifié, vous pouvez naviguez vers <a href="/memberprofile"> votre espace personnel.</a></h4>
-
-        }
-    </Greetings>
-        
-    <Thanks>
-        <h3>Merci pour votre visite !</h3>
-    </Thanks>
-</Home>
+<Animate Animation="Animations.ZoomInUp" Duration="TimeSpan.FromSeconds(1)" @ref="animateZoom" IsManual="false">
+    <Home Title="BookXchange vous souhaite la bienvenue." @attributes="AdditionalAttributes">
+        <Greetings>     
+            @if(accountManager.IsTokenPresent == false)
+            {
+                <h4>Envie d'échanger des ouvrages avec d'autres membres ? <a href="/register" alt="lien vers inscription">Inscrivez-vous gratuitement.</a></h4>
+                <br />
+                <h4>Déjà membre ? <a href="/login" alt="lien vers identification">Identifiez-vous et bon surf !</a></h4>
+            }
+            else
+            {
+                <h4>Vous êtes identifié, vous pouvez naviguez vers <a href="/memberprofile"> votre espace personnel.</a></h4>
+            }
+        </Greetings>       
+        <Thanks>
+            <h3>Merci pour votre visite !</h3>
+        </Thanks>
+    </Home>
+</Animate>
 
 @code{
+    private Animate? animateZoom;
+
     public Dictionary<string, object> AdditionalAttributes { get; set; } = new Dictionary<string, object>
     {
         { "src", "/images/bookshare_1280x800.jpg" },
@@ -39,24 +38,18 @@
     protected override async Task OnInitializedAsync()
     {
         await accountManager.checkIfTokenStored();
-
         accountManager.OnChange += StateHasChanged;
+
+        animateZoom?.Run();
+    }
+
+    private void AnimationZoom()
+    {
+        animateZoom?.Run();
     }
 
     public void Dispose()
     {
         accountManager.OnChange -= StateHasChanged;
     }
-
-
-
-
-    //public void GoToRegister()
-    //{
-    //    navigationManager.NavigateTo("/register");
-    //}
-    //public void GoToLogin()
-    //{
-    //    navigationManager.NavigateTo("/login");
-    //}
 }
