@@ -87,3 +87,20 @@ main {
         padding-right: 1.5rem !important;
     }
 }
+
+/*.spinner-border {
+    border: 16px solid silver;
+    border-top: 16px solid #337AB7;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spinner-border 700ms linear infinite;
+    top: 40%;
+    left: 55%;
+    position: absolute;
+}
+*/
+@keyframes spinner-border {
+    to {
+        transform: rotate(360deg)}
+}
