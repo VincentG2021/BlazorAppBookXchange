@@ -1,52 +1,139 @@
-﻿<div class="container-fluid">
-@if(!isEditing)
-{
-    <div class="card mb-3" style="max-width: 540px;">
-      <div class="row g-0">
-    
-        <div class="col-md-4">
-          <img src="https://avatars.githubusercontent.com/u/82599533?s=400&u=e8202244ad8c3c8493814368782a6d09e47a993a&v=4" class="img-fluid rounded-start try" alt="...">
-        </div>
-    
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5 class="card-title">Role de membre: @connectedMember.Role</h5>
-            <h3 class="card-header">@connectedMember.Pseudo</h3>
-            <p class="card-text">Mordu de lecture, toujours assoiffé de connaissances et partageur d'histoires sans fin...</p>
-            <p class="card-text"><small class="text-muted">En ligne depuis...</small></p>
+﻿@using BlazorAppBookXchange.Components.Modals
+<style>
+    main {
+/*        background-color: #756213;
+        background-image: linear-gradient(315deg, #756213 0%, #000000 74%);*/
+    }
 
-            <boutton class="btn btn-primary" @onclick="() => ToggleEditing()">Editer</boutton>
-          </div>
-        </div>
+    .contour {
+/*        background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+*/
+/*        background-color: #212529;
+*/
+    }
 
-      </div>
-    </div>
-}
-else
-{
-    <div class="card mb-3" style="max-width: 540px;">
-      <div class="row g-0">
+    .box {
+        text-align:center;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        min-height: 50%;
+        min-width:300px;
+        padding: 10px;
+/*        background-color: #ffb377;
+*/        
+        margin: auto;
+        border-radius: 2%;
+    }
 
-        <div class="col-md-4">
-          <img src="../images/placeholder-user-icon.png" class="img-fluid rounded-start try" alt="..." style="cursor: pointer;">
-        </div>
+    .col-centered {
+        margin: 0 auto;
+        float: none;
+    }
 
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5 class="card-title">Role de membre: @connectedMember.Role</h5>
-            <h3 class="card-header">@connectedMember.Pseudo</h3>
-    @*        <h3 class="card-header">@connectedMember.Pseudo</h3>
+    .spaced {
+        margin: 1em;
+    }
+
+    .golden {
+        color: lightgoldenrodyellow;
+    }
+
+</style>
+
+
+
+<div class="container-fluid">
+    <div class="contour box">
+
+        @if(!isEditing)
+        {
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-4 p-3">
+                        <img src="@connectedMember.Image" class="img-fluid" alt="..." style="border-radius: 50%">               
+@*                      <img src="https://avatars.githubusercontent.com/u/82599533?s=400&u=e8202244ad8c3c8493814368782a6d09e47a993a&v=4" class="img-fluid rounded-start try" alt="...">
+*@                
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h3 class="card-header">Pseudo: @connectedMember.Pseudo</h3>
+                            <br/>
+                            <p class="card-text">Mordu de lecture, toujours assoiffé de connaissances et partageur d'histoires sans fin...</p>
+                            <p>Prénom: @connectedMember.Prenom</p>
+                            <p>Nom: @connectedMember.Nom</p>
+                            <p>Localisation: @connectedMember.Localisation</p>
+                            <p class="card-text"><small class="text-muted">En ligne depuis...</small></p>
+                            <p class="card-text"><small class="text-muted">Membre depuis...</small></p>      
+        @*                    <h6 class="card-title">Role de membre: @connectedMember.Role</h6>
     *@
-    @*        <p class="card-text">@connectedMember.Nom</p>
-            <p class="card-text">@connectedMember.Prenom</p>
-    *@
-            <p class="card-text"><small class="text-muted">Membre depuis...</small></p>      
-            <boutton class="btn btn-primary" @onclick="() => ToggleEditing()">Editer</boutton>
+                            <boutton class="btn btn-primary align-middle" @onclick="() => ToggleEditing()"><i class="bi bi-pencil-fill"></i>Editer</boutton>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-4 p-3">
+                        <img src="../images/placeholder-user-icon.png" class="img-fluid" alt="..." style="border-radius: 50%; cursor: pointer;">
+                        @*@onclick="() => OpenInputDialog()"*@
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <EditForm Model="editMembre" OnValidSubmit="SubmitEditMembreForm">
+                                <DataAnnotationsValidator />
+                                <div class="form-group">
+                                    <label for="pseudo">Pseudo</label>
+                                    <InputText id="pseudo" @bind-Value="editMembre.Pseudo" class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="prenom">Prenom</label>
+                                    <InputText id="prenom" @bind-Value="editMembre.Prenom" class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nom">Nom</label>
+                                    <InputText id="nom" @bind-Value="editMembre.Nom" class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="localisation">Localisation</label>
+                                    <InputText id="localisation" @bind-Value="editMembre.Localisation" class="form-control"/>
+                                </div>
+        @*                    <h6 class="card-title">Role de membre: @connectedMember.Role</h6>
+        *@                    
+                                <br/>
+                                <div class="text-right">
+                                    <span>
+                                        <boutton class="btn btn-info align-middle" @onclick="() => ToggleEditing()"><i class="bi bi-arrow-return-left"></i> Retour</boutton>
+                                    </span>
+                                    <span>
+                                        <button type="submit" class="btn btn-success align-middle">Valider</button>
+                                    </span>
+                                </div>
+                                <ValidationSummary />
+                            </EditForm>
+                        </div>
+                    </div>
 
-          </div>
-        </div>
-
-      </div>
+                </div>
+            </div>
+        }
     </div>
-}
 </div>
+
+
+                    
+@*    <InputNumber hidden="hidden" @bind-Value="editMembre.IdMembre"></InputNumber>
+*@
+
+
+@*@if (InputDialogOpen)
+{
+    // Appel de ModalDialog, passage du Parameter de OnClose delegate (pointe vers la méthode privée OnDeleteDialogClose)
+    <ModalDialog DialogType="ModalDialog.ModalDialogType.Input" Title="Valider ou annuler" Text="Confirmez-vous la suppression de cet élément ?" OnClose="@OnInputDialogClose"></ModalDialog>
+}
+*@
+
+@*<SuccessNotification @ref="_notification"/>*@

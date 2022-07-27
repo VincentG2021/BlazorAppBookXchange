@@ -11,7 +11,8 @@ namespace BlazorAppBookXchange.Components.MembreComponents.MembreList
         [Inject] private NavigationManager _navigationManager { get; set; }
         [Inject] private AccountManager _accountManager { get; set; }
 
-        public List<MembreModel> membresList = new List<MembreModel>();
+        public List<ConnectedMember> membresList = new List<ConnectedMember>();
+
         protected override async Task OnInitializedAsync()
         {
             bool isTokenPresent = await _accountManager.checkIfTokenStored();
@@ -21,7 +22,8 @@ namespace BlazorAppBookXchange.Components.MembreComponents.MembreList
                 return;
             }
             string Token = await _accountManager.GetToken("token");
-            membresList = await _requester.Get<List<MembreModel>>("membre/GetMembreList", Token);
+            membresList = await _requester.Get<List<ConnectedMember>>("membre/GetMembreList", Token);
+
         }
     }
 }

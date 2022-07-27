@@ -4,6 +4,12 @@
 @using BlazorAppBookXchange.Components.Modals
 @using BlazorAppBookXchange.Models
 
+<style>
+    footer {
+        visibility: hidden;
+    }
+</style>
+
 @if (exemplairesList == null)
 {
     <BlazorAppBookXchange.Components.Spinner.SpinnerCustom>
@@ -35,8 +41,8 @@ else
                                     <p class="card-text">@exemplaire.Auteur</p>
                                     <p class="card-text">@(exemplaire.Synopsis.Substring(0,exemplaire.Synopsis.Length > 150 ? 150 : exemplaire.Synopsis.Length)) @(exemplaire.Synopsis.Length > 40 ? "(...)" : "")</p>
                                     <p class="card-text"><small class="text-muted">Disponible</small></p>
-                                    <boutton class="btn-sm btn-primary" @onclick="() => SetSelectedCard(exemplaire)" style="cursor:pointer;">
-                                        <i class="bi bi-eye-fill text-info"></i> Voir détails
+                                    <boutton class="btn-sm btn-outline-info" @onclick="() => SetSelectedCard(exemplaire)" style="cursor:pointer;">
+                                        <i class="bi bi-eye text-dark"></i> Voir détails
                                     </boutton>
                                     @*<a href="#" class="btn btn-primary">Go somewhere</a>  *@                         
                                 </div>
@@ -67,13 +73,17 @@ else
                                     <p class="card-text">Format: @exemplaire.Format</p>
                                     <p class="card-text">Id membre: @exemplaire.IdMembre</p>
     @*                                <p class="card-text"><small class="text-muted">Disponible</small></p>
-    *@                                
-                                    <boutton class="btn-sm btn-primary" @onclick="() => SetSelectedCard(exemplaire)" style="cursor:pointer;">
-                                        <i class="bi bi-eye text-primary"></i> Voir Résumé
-                                    </boutton>
-                                    <boutton class="btn-sm btn-success" @onclick="() => OpenXchangeDialog(exemplaire)" style="cursor:pointer;">
-                                        Xchange
-                                    </boutton>
+    *@                              
+                                    <span class="p-3">
+                                        <boutton class="btn-sm btn-outline-warning" @onclick="() => SetSelectedCard(exemplaire)" style="cursor:pointer;">
+                                            <i class="bi bi-eye text-dark"></i> Voir Résumé
+                                        </boutton>    
+                                    </span>
+                                    <span class="p-3">
+                                        <boutton class="btn-sm btn-success" @onclick="() => OpenXchangeDialog(exemplaire)" style="cursor:pointer;">
+                                            Xchange
+                                        </boutton>
+                                    </span>
                                     @*<a href="#" class="btn btn-primary">Go somewhere</a>*@
 
                                 </div>
