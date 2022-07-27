@@ -30,7 +30,9 @@ namespace BlazorAppBookXchange.Pages.Register
                 await _accountManager.checkIfTokenStored();
                 int idConnectedMember = mm.IdMembre;
 
-                _navigationManager.NavigateTo($"/memberprofile/{idConnectedMember}");
+                _navigationManager.NavigateTo($"/ProfilMembre");
+                //_navigationManager.NavigateTo($"/memberprofile/{idConnectedMember}");
+
             }
             else
             {
