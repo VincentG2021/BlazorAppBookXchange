@@ -22,6 +22,12 @@
                         <button type="button" class="btn btn-danger" @onclick="@ModalOk">Supprimer</button>
                         <button type="button" class="btn btn-secondary" @onclick="@ModalCancel">Annuler</button>
                         break;
+                    case ModalDialogType.Input:
+                        <input type="text"/>
+                        <InputText placeholder="ne frappez pas trop fort svp"></InputText>
+                        <button type="button" class="btn btn-primary" @onclick="@ModalOk">OK</button>
+                        <button type="button" class="btn btn-secondary" @onclick="@ModalCancel">Annuler</button>
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -62,11 +68,17 @@
         return OnClose.InvokeAsync(true);
     }
 
+    private Task ModalInput()
+    {
+        // Here we invoke the whatever delegate was assigned to the OnClose Parameter, passing true (Ok clicked)
+        return OnClose.InvokeAsync(true);
+    }
 
     public enum ModalDialogType
     {
         Ok,
         OkCancel,
-        DeleteCancel
+        DeleteCancel,
+        Input
     }
 }

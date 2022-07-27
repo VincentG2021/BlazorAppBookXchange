@@ -11,11 +11,7 @@ namespace BlazorAppBookXchange.Models
         public string? Prenom { get; set; }
         public string? Nom { get; set; }
         public string Pwd { get; set; }
-
         public int Role { get; set; }
-
-
-
     }
 
     public class LoginMembreModel
@@ -28,8 +24,6 @@ namespace BlazorAppBookXchange.Models
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-
-
     }
 
     public class ConnectedMember
@@ -43,5 +37,31 @@ namespace BlazorAppBookXchange.Models
         public string Token { get; set; }
         public string? Localisation { get; set; }
         public string? Image { get; set; }
+    }
+
+    public class EditMembreCardModel
+    {
+        public int IdMembre { get; set; }
+        
+        [DisplayName("Pseudo")]
+        [Required]
+        public string Pseudo { get; set; }
+
+        [DisplayName("Email")]
+        [Required]
+        public string Email { get; set; }
+
+        [DisplayName("Prénom")]
+        public string? Prenom { get; set; }
+
+        [DisplayName("Nom")]
+        public string? Nom { get; set; }
+
+        [DisplayName("Localisation")]
+        public string? Localisation { get; set; }
+
+        [DisplayName("Image")]
+        public string? Image { get; set; }
+
     }
 }

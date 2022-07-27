@@ -13,18 +13,47 @@ else
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Pseudo</th>
-                <th>Email</th>
-                <th>Role</th>
+                <th scope="col">Avatar</th>
+                <th scope="col">Pseudo</th>
+                <th scope="col">Email</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Localisation</th>
+                <th scope="col">Inscription</th>
+                <th scope="col">Role</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var membre in membresList)
             {
                 <tr>
-                    <td>@membre.Pseudo</td>
-                    <td>@membre.Email</td>
-                    <td>@membre.Role</td>
+                    <td class="align-middle"><img src="@membre.Image" alt="...avatar..." style="max-width: 4rem; border-radius: 50%"></td>
+                    <td class="align-middle">@membre.Pseudo</td>
+                    <td class="align-middle">@membre.Email</td>
+                    <td class="align-middle">@membre.Prenom</td>
+                    <td class="align-middle">@membre.Nom</td>
+                    <td class="align-middle">@membre.Localisation</td>
+                    <td class="align-middle">28/07/2022</td>
+                    @if(@membre.Role == 0)
+                    {
+                        <td class="align-middle">membre</td>
+                    }
+                    else if(@membre.Role == 1)
+                    {
+                        <td class="align-middle">admin</td>
+                    }
+                    else if(@membre.Role == 2)
+                    {
+                        <td class="align-middle">testeur</td>
+                    }
+                    else if(@membre.Role == 3)
+                    {
+                        <td class="align-middle">éditeur</td>
+                    }
+                    else
+                    {
+                        <td class="align-middle">X</td>
+                    }
                 </tr>
             }
         </tbody>
