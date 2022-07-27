@@ -77,6 +77,6 @@ else
 
 @if (DeleteDialogOpen)
 {
-    // we call the ModalDialog, passing the Parameter of OnClose delegate. This points to the OnDeleteDialogClose private method
+    // Appel de ModalDialog, passage du Parameter de OnClose delegate (pointe vers la méthode privée OnDeleteDialogClose)
     <ModalDialog DialogType="ModalDialog.ModalDialogType.DeleteCancel" Title="Valider ou annuler" Text="Confirmez-vous la suppression de cet élément ?" OnClose="@OnDeleteDialogClose"></ModalDialog>
 }

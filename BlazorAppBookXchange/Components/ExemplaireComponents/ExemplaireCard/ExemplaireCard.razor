@@ -1,6 +1,7 @@
 ﻿@page "/exemplaireCard"
 @using BlazorAnimate
 @using BlazorAppBookXchange.Components.ExemplaireComponents
+@using BlazorAppBookXchange.Components.Modals
 @using BlazorAppBookXchange.Models
 
 @if (exemplairesList == null)
@@ -9,13 +10,11 @@
 }
 else
 {
-@*    <div class="d-grid row gap-3">
-*@@*    <div class="d-flex flex-column flex-lg-row gap-3">
-*@        @foreach (var exemplaire in exemplairesList)
+    @foreach (var exemplaire in exemplairesList)
+    {
+        @if (!exemplaire.IsCardFlipped)
         {
-            @if (!exemplaire.IsCardFlipped)
-            {
-                <div class="d-inline-block" style="min-width: 20%; max-width: 40%; overflow-wrap: break-word; ">
+            <div class="d-inline-block" style="min-width: 20%; max-width: 40%; overflow-wrap: break-word; margin: 3px;">
                 <Animate Animation="Animations.FlipRight" Duration="TimeSpan.FromSeconds(0.5)" @ref="animateFlip" IsManual="false">
                     <div class="card mb-6">
                         <div class="row g-0">
@@ -31,7 +30,7 @@ else
                                 <div class="card-body">
                                     <h5 class="card-title">@exemplaire.Titre</h5>
                                     <p class="card-text">@exemplaire.Auteur</p>
-                                    <p class="card-text">@exemplaire.Synopsis</p>
+                                    <p class="card-text">@(exemplaire.Synopsis.Substring(0,exemplaire.Synopsis.Length > 150 ? 150 : exemplaire.Synopsis.Length)) @(exemplaire.Synopsis.Length > 40 ? "(...)" : "")</p>
                                     <p class="card-text"><small class="text-muted">Disponible</small></p>
                                     <boutton class="btn-sm btn-primary" @onclick="() => SetSelectedCard(exemplaire)" style="cursor:pointer;">
                                         <i class="bi bi-eye-fill text-info"></i> Voir détails
@@ -42,12 +41,13 @@ else
                         </div>
                     </div>
                 </Animate>
-                </div>
-            }
-            @if (exemplaire.IsCardFlipped)
-            {
+            </div>
+        }
+        @if (exemplaire.IsCardFlipped)
+        {
+            <div class="d-inline-block" style="min-width: 20%; max-width: 40%; overflow-wrap: break-word; margin: 3px;">
                 <Animate Animation="Animations.FlipLeft" Duration="TimeSpan.FromSeconds(0.5)" @ref="animateFlip" IsManual="false">
-                    <div class="card mb-6" style="min-width: 300px; max-width: 540px;">
+                    <div class="card mb-6">
                         <div class="row g-0">
                             <div class="col-md-4">
         @*                            <img src="..." class="img-fluid rounded-start" alt="...">
@@ -59,29 +59,36 @@ else
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title">@exemplaire.Isbn</h5>
-                                    <p class="card-text">@exemplaire.Parution</p>
-                                    <p class="card-text">@exemplaire.Format</p>
-                                    <p class="card-text">@exemplaire.IdMembre</p>
+                                    <h5 class="card-title">ISBN: @exemplaire.Isbn</h5>
+                                    <p class="card-text">Parution: @exemplaire.Parution.ToString("dd/MM/yyyy")</p>
+                                    <p class="card-text">Format: @exemplaire.Format</p>
+                                    <p class="card-text">Id membre: @exemplaire.IdMembre</p>
     @*                                <p class="card-text"><small class="text-muted">Disponible</small></p>
     *@                                
-                                <boutton class="btn-sm btn-primary" @onclick="() => SetSelectedCard(exemplaire)" style="cursor:pointer;">
-                                    <i class="bi bi-eye text-primary"></i> Voir Résumé
-                                </boutton>
-                                <boutton class="btn-sm btn-success" @onclick="() => AskXchange(exemplaire)" style="cursor:pointer;">
-                                    <i class="bi bi-eye-fill text-info"></i> Xchange
-                                </boutton>
-                                @*<a href="#" class="btn btn-primary">Go somewhere</a>*@
+                                    <boutton class="btn-sm btn-primary" @onclick="() => SetSelectedCard(exemplaire)" style="cursor:pointer;">
+                                        <i class="bi bi-eye text-primary"></i> Voir Résumé
+                                    </boutton>
+                                    <boutton class="btn-sm btn-success" @onclick="() => OpenXchangeDialog(exemplaire)" style="cursor:pointer;">
+                                        Xchange
+                                    </boutton>
+                                    @*<a href="#" class="btn btn-primary">Go somewhere</a>*@
 
                                 </div>
                             </div>
                         </div>
                     </div>
                 </Animate>
-            }
+            </div>
+        }
     }
-@*    </div>
-*@}
+}
+
+
+@if (XchangeDialogOpen)
+{
+    // Appel de ModalDialog, passage du Parameter de OnClose delegate (pointe vers la méthode privée OnDeleteDialogClose)
+    <ModalDialog DialogType="ModalDialog.ModalDialogType.OkCancel" Title="Valider ou annuler" Text="Confirmez-vous demander l'échange de cet exemplaire ? (accès membre identifié)" OnClose="@OnXchangeDialogClose"></ModalDialog>
+}
 
 @*@if (IdSelectedExemplaire != 0)
 {

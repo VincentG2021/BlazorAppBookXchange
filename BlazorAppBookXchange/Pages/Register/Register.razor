@@ -1,32 +1,98 @@
 ﻿@page "/register"
-<h3>Créez votre compte ici:</h3>
 
-<EditForm Model="nouveauMembre" OnValidSubmit="SubmitForm">
-    <DataAnnotationsValidator />
-    <p>
-        Pseudo : <InputText @bind-Value=nouveauMembre.Pseudo/>
-    </p>
-    <p>
-        Email : <InputText @bind-Value=nouveauMembre.Email/>
-    </p>
-    <p>
-        Pwd : <InputText @bind-Value=nouveauMembre.Pwd/>
-    </p>
-    <p>
-        Nom : <InputText @bind-Value=nouveauMembre.Nom/>
-    </p>
-    <p>
-        Prénom : <InputText @bind-Value=nouveauMembre.Prenom/>
-    </p>
-@*    <p>
-        Localisation : <InputText @bind-Value=nouveauMembre.Localisation/>
-    </p>
-*@    <p>
-        Role : <InputNumber @bind-Value=nouveauMembre.Role/>
-    </p>
-    <button class="btn btn-success" type="submit">Valider</button>
-    <ValidationSummary />
-</EditForm>
-@code {
+<style>
+/*    main {
+                background-color: #756213;
+        background-image: linear-gradient(315deg, #756213 0%, #000000 74%);
+    }
+*/
+    .contour {
+        text-align:center;
+/*        background-color: #212529;
+*/
+    }
 
-}
+    .box {
+        align-items: center;
+        justify-content: center;
+        width: 50%;
+        min-height: 50%;
+        min-width:300px;
+        padding: 10px;
+/*        background-color: #ffb377;
+*/        
+        background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+        margin: auto;
+        border-radius: 2%;
+    }
+
+    .col-centered {
+        margin: 0 auto;
+        float: none;
+    }
+
+    .spaced {
+        margin: 1em;
+    }
+
+    .golden {
+        color: lightgoldenrodyellow;
+    }
+
+</style>
+
+<div class="container-fluid">
+    <div class="contour">
+        <span>
+            <img src="images/logo_bookXchange_left.gif" class="img-fluid rounded-start" style="max-width: 100px"/>
+        </span>
+        <div class="box d-flex flex-column ">
+            <div>
+                <h4 class="spaced golden">Créez votre compte de membre ici: </h4>
+            </div>
+            <br />
+            <EditForm Model="nouveauMembre" OnValidSubmit="SubmitForm" autocomplete="off">
+                <DataAnnotationsValidator />
+                <div class="form-group">
+                    <label for="pseudo" class="golden">Pseudo</label>
+                    <InputText id="pseudo" type="text" @bind-Value=nouveauMembre.Pseudo class="form-control col-centered" style="max-width: 85%" placeholder="Votre choix de pseudo"/>
+                </div>
+                <br />
+                <div class="form-group">
+                    <label for="email" class="golden">E-mail</label>
+                    <InputText id="email" type="email" @bind-Value=nouveauMembre.Email class="form-control col-centered" style="max-width: 85%" placeholder="Votre e-mail"/>
+                </div>
+                <br />
+                <div class="form-group">
+                    <label for="password" class="golden">Mot de passe</label>
+                    <InputText id="password" @bind-Value=nouveauMembre.Pwd type="password" class="form-control col-centered" style="max-width: 85%" placeholder="Entrez votre choix mot de passe"/>
+                    <p class="small"><em>Conseil: doit comporter au minimum huit caractères, dont une majuscule et un chiffre.</em></p>
+                </div>
+                <br />
+
+@*                <div class="form-group">
+                    <label for="prenom" class="golden"></label>
+                    <InputText id="prenom" hidden="hidden" @bind-Value=nouveauMembre.Nom class="form-control col-centered" style="max-width: 85%" placeholder="Entrez votre prénom"/>
+                </div>
+                <div class="form-group">
+                    <label for="nom" class="golden"></label>
+                    <InputText id="nom" hidden="hidden" @bind-Value=nouveauMembre.Nom class="form-control col-centered" style="max-width: 85%" placeholder="Entrez votre nom"/>
+                </div>
+
+*@
+
+                <div class="form-group">
+                    @*<label for="role" class="golden"></label>*@
+
+                    <InputNumber id="role" hidden="hidden" @bind-Value=nouveauMembre.Role class="form-control col-centered" style="max-width: 85%" placeholder="Role de membre"/>
+                </div>
+
+                <button class="btn btn-success spaced" type="submit" >Valider</button>
+                <ValidationSummary />
+            </EditForm>
+        </div>
+        <span>
+            <img src="images/logo_bookXchange_right.gif" class="img-fluid rounded-start" style="max-width: 100px"/>
+        </span>
+    </div>
+</div>
