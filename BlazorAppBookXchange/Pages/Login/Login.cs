@@ -43,7 +43,8 @@ namespace BlazorAppBookXchange.Pages.Login
 
                 int idConnectedMember = mm.IdMembre;
 
-                _navigationManager.NavigateTo($"/profilmembre/{idConnectedMember}");
+                _navigationManager.NavigateTo($"/profilmembre");
+                //_navigationManager.NavigateTo($"/profilmembre/{idConnectedMember}");
             }
             else
             {
