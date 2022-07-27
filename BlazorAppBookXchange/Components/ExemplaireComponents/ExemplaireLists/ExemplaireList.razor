@@ -1,6 +1,8 @@
 ﻿@page "/exemplairelist"
 
 
+@using BlazorAppBookXchange.Components.Modals
+@using BlazorAppBookXchange.Components.ToolTip
 @using BlazorAppBookXchange.Models
 @*@using BlazorAppBookXchange.Components.ExemplaireCard
 *@
@@ -17,27 +19,22 @@
 @*        <button class="btn btn-primary" @onclick="ShowEditionsByBook">Livre sélectionné : @TitreSelectedBook <br /> Cliquez ici pour lancer la recherche</button>
 *@
 
-    <table class="table table-striped">
+<div class="" style="overflow-wrap: break-word; margin: 3px;">
+    <table class="table table-striped table-hover">
         <thead>
             <tr>
-                <th scope="col">Id Exemplaire</th>
-                <th scope="col">Id Livre</th>
-                <th scope="col">Titre</th>
+                <th scope="col"></th>
+                <th scope="col" colspan="2">Titre</th>
                 <th scope="col">Auteur</th>
-                <th scope="col">Synopsis</th>
-                <th scope="col">Id Edition</th>
-                <th scope="col">ISBN</th>
-                <th scope="col">Parution</th>              
-                <th scope="col">Format</th>
-                <th scope="col">Id Membre</th>
+                <th scope="col"colspan="4">Synopsis</th>
                 
-                @if(accountManager.IsTokenPresent)
+@*                @if(accountManager.IsTokenPresent)
                 {
                     <th>Actions</th> 
                     <th scope="col">Update</th>
                     <th scope="col">Delete</th>                  
                 }
-            </tr>
+*@            </tr>
         </thead>
         <tbody>
             @if (exemplairesList == null)
@@ -48,18 +45,50 @@
             {
                 @foreach (var exemplaire in exemplairesList)
                 {
-                    <tr>
-                        <td class="align-middle">@exemplaire.IdExemplaire</td>
-                        <td class="align-middle">@exemplaire.IdLivre</td>
-                        <td class="align-middle">@exemplaire.Titre</td>
+                    <tr style="padding-top: 1em; padding-bottom: 1em;">
+                        <td class="align-middle" >
+                            <ToolTip Text="Afficher / masquer les détails de cet exemplaire">
+                                <i class="bi bi-info-circle" @onclick="() => SetSelected(exemplaire)" style="cursor:pointer;"></i> 
+                            </ToolTip>
+                        </td>
+                        <td class="align-middle" colspan="2">@exemplaire.Titre</td>
                         <td class="align-middle">@exemplaire.Auteur</td>
-                        <td class="align-middle">@exemplaire.Synopsis</td>
-                        <td class="align-middle">@exemplaire.IdEdition</td>
-                        <td class="align-middle">@exemplaire.Isbn</td>
-                        <td class="align-middle">@exemplaire.Parution</td>
-                        <td class="align-middle">@exemplaire.Format</td>
-                        <td class="align-middle">@exemplaire.IdMembre</td>
-                    @if (accountManager.IsTokenPresent)
+                        <td class="align-middle" colspan="4">@(exemplaire.Synopsis.Substring(0,exemplaire.Synopsis.Length > 150 ? 150 : exemplaire.Synopsis.Length)) @(exemplaire.Synopsis.Length > 40 ? "(...)" : "")</td>
+                    </tr>
+
+
+
+                    @if(exemplaire.IsRowExpanded)
+                    {
+                        <tr class="table-primary">
+                            <th scope="col">Parution</th>
+                            <th scope="col">Format</th>
+                            <th scope="col" colspan="2">Isbn</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Xchange</th>
+                            <th scope="col">Id Membre</th>
+                            <th scope="col">Id X</th>
+
+                        </tr>
+                        <tr style="border-bottom: 2px solid black;">
+                            <td class="align-middle">@exemplaire.Parution.ToString("dd/MM/yyyy")</td>
+                            <td class="align-middle">@exemplaire.Format</td>
+                            <td class="align-middle" colspan="2">@exemplaire.Isbn</td>
+                            <td class="align-middle">Disponible</td>
+                            <td class="align-middle">
+                                <boutton class="btn-sm btn-success" @onclick="() => OpenXchangeDialog(exemplaire)" style="cursor:pointer;">
+                                    Xchange
+                                </boutton>
+                            </td>
+                            <td class="align-middle">@exemplaire.IdMembre</td>
+                            <td class="align-middle">@exemplaire.IdExemplaire</td>
+                        </tr>
+                    }          
+
+                        @* <td @onclick='() => SetSelected(exemplaire.IdEdition)' style="cursor:pointer;">Voir exemplaires</td>
+*@
+
+@*                    @if (accountManager.IsTokenPresent)
                     {
                         <td class="align-middle">
                             <button type="button" class="btn btn-info">Update</button>
@@ -67,15 +96,9 @@
                         <td class="align-middle">
                             <button type="button" class="btn btn-danger">Delete</button>
                         </td>
-                        @* <td @onclick='() => SetSelected(exemplaire.IdEdition)' style="cursor:pointer;">Voir exemplaires</td>
-*@
-                    }
-                </tr>
+                    }*@
                 }
             }
-
-
-
 
             @if (exemplairesByBookList == null)
             {
@@ -101,10 +124,15 @@
 *@                    </tr>
                 }
             }
-
-
         </tbody>
     </table>
+</div>
+
+@if (XchangeDialogOpen)
+{
+    // Appel de ModalDialog, passage du Parameter de OnClose delegate (pointe vers la méthode privée OnDeleteDialogClose)
+    <ModalDialog DialogType="ModalDialog.ModalDialogType.OkCancel" Title="Valider ou annuler" Text="Confirmez-vous demander l'échange de cet exemplaire ? (accès membre identifié)" OnClose="@OnXchangeDialogClose"></ModalDialog>
+}
 
 @*
     @if(IdSelectedEdition !=0)

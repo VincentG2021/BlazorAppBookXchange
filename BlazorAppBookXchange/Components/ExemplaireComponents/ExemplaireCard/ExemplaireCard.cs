@@ -11,7 +11,7 @@ namespace BlazorAppBookXchange.Components.ExemplaireComponents.ExemplaireCard
         [Inject] private NavigationManager _navigationManager { get; set; }
         [Inject] private ApiRequester _requester { get; set; }
         [Inject] private AccountManager _accountManager { get; set; }
-        [Inject] private XchangeService _xchangeService { get; set; }
+        //[Inject] private XchangeService _xchangeService { get; set; }
 
         private Animate? animateFlip;
 
@@ -21,12 +21,12 @@ namespace BlazorAppBookXchange.Components.ExemplaireComponents.ExemplaireCard
         public int IdSelectedExemplaire { get; set; }
         public string TitreSelectedExemplaire { get; set; }
 
+        private ExemplaireModel _itemToXchange = new ExemplaireModel();
+        public bool XchangeDialogOpen { get; set; } // Cette propriété détermine si ModalDialog doit s'acfficher
         public MembreModel MembreDetails { get; set; } = new MembreModel();
 
         protected override async Task OnInitializedAsync()
         {
-            //cardFlipClass = "hideBackCard";
-
             exemplairesList = await _requester.Get<List<ExemplaireModel>>("Exemplaire/GetExemplaireList");
             await _accountManager.checkIfTokenStored();
             _accountManager.OnChange += StateHasChanged;
@@ -60,24 +60,69 @@ namespace BlazorAppBookXchange.Components.ExemplaireComponents.ExemplaireCard
             exemplaire.IsCardFlipped = !exemplaire.IsCardFlipped;
             AnimationFlip();
         }
-        public async Task<MembreModel> AskXchange(ExemplaireModel exemplaire)
+
+        private void OpenXchangeDialog(ExemplaireModel exemplaire)
         {
-            Console.WriteLine(exemplaire.IdMembre);
-            IdSelectedExemplaire = exemplaire.IdExemplaire;
-            TitreSelectedExemplaire = exemplaire.Titre;
-            MembreDetails = await /*_xchangeService.*/GetMembreDetails(exemplaire.IdMembre);
-            Console.WriteLine(MembreDetails.Email);
-            return MembreDetails;
+            _itemToXchange = exemplaire;
+            XchangeDialogOpen = true;
         }
 
-        public async Task<MembreModel> GetMembreDetails(int id)
+        private async Task OnXchangeDialogClose(bool accepted)
         {
-            //await CheckIfTokenStored();
-            string Token = await _accountManager.GetToken("token");
-            int IdConnectedMembre = await _accountManager.GetMemberId("idMembre");
-            MembreDetails = await _requester.Get<MembreModel>($"Membre/GetMembreById/{id}", Token);
-            return MembreDetails;
+            if (accepted)
+            {
+                bool isTokenPresent = await _accountManager.checkIfTokenStored();
+                if (!_accountManager.IsConnected && !isTokenPresent)
+                {
+                    _navigationManager.NavigateTo("/login");
+                    return;
+                }
+                string Token = await _accountManager.GetToken("token");
+                //await _accountManager.checkIfTokenStored();
+                //string token = await _accountManager.GetToken("token");
+
+                Console.WriteLine($"Exemplaire demandé au membre ayant l'id {_itemToXchange.IdMembre} : {_itemToXchange.Titre} ayant l'id d'exemplaire: {_itemToXchange.IdExemplaire} ");
+                //TODO changer requète pour envoi demande 
+                //bool result = await _requester.Delete<bool>($"exemplaire/DeleteExemplaire/", _itemToXchange.IdExemplaire, token);
+                //Console.WriteLine(result);
+                //_itemToXchange = new ExemplaireModel();
+                //await LoadData();
+            }
+
+            XchangeDialogOpen = false;
+            StateHasChanged();
         }
+
+
+
+        //public async Task<MembreModel> AskXchange(ExemplaireModel exemplaire)
+        //{
+        //    Console.WriteLine(exemplaire.IdMembre);
+        //    IdSelectedExemplaire = exemplaire.IdExemplaire;
+        //    TitreSelectedExemplaire = exemplaire.Titre;
+        //    MembreDetails = await /*_xchangeService.*/GetMembreDetails(exemplaire.IdMembre);
+        //    Console.WriteLine(MembreDetails.Email);
+        //    return MembreDetails;
+        //}
+
+        //public async Task<MembreModel> AskXchange(ExemplaireModel exemplaire)
+        //{
+        //    Console.WriteLine(exemplaire.IdMembre);
+        //    IdSelectedExemplaire = exemplaire.IdExemplaire;
+        //    TitreSelectedExemplaire = exemplaire.Titre;
+        //    MembreDetails = await /*_xchangeService.*/GetMembreDetails(exemplaire.IdMembre);
+        //    Console.WriteLine(MembreDetails.Email);
+        //    return MembreDetails;
+        //}
+
+        //public async Task<MembreModel> GetMembreDetails(int id)
+        //{
+        //    //await CheckIfTokenStored();
+        //    string Token = await _accountManager.GetToken("token");
+        //    int IdConnectedMembre = await _accountManager.GetMemberId("idMembre");
+        //    MembreDetails = await _requester.Get<MembreModel>($"Membre/GetMembreById/{id}", Token);
+        //    return MembreDetails;
+        //}
 
 
         public void GoToBookDetails(int id)
