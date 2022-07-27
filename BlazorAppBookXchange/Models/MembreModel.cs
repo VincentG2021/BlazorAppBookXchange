@@ -41,5 +41,7 @@ namespace BlazorAppBookXchange.Models
         public string? Nom { get; set; }
         public int Role { get; set; }
         public string Token { get; set; }
+        public string? Localisation { get; set; }
+        public string? Image { get; set; }
     }
 }
